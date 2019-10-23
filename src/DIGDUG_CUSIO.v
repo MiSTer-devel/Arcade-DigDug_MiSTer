@@ -146,7 +146,9 @@ input [3:0] stk;
 			   stk[3] ? 6 : 8;
 endfunction
 
-always @( posedge VBLK or posedge RESET ) begin
+reg pVBLK = 1'b0;
+
+always @( posedge CL or posedge RESET ) begin
 	if (RESET) begin
 		LCOINS   = 0;
 		RCOINS   = 0;
@@ -163,45 +165,49 @@ always @( posedge VBLK or posedge RESET ) begin
 		piINP0 <= 0;
 		piINP1 <= 0;
 		piINP2 <= 0;
+
+		pVBLK  <= 0;
 	end
 	else begin
+		if (VBLK & (VBLK^pVBLK)) begin
+			SW_CC <= {nINP[15],1'b0,piINP[11],piINP[10],2'b00,iINP[13],iINP[12]};
+			SW_P1 <= {2'b00, pINP[8], iINP[8],nINP[3:0]};
+			SW_P2 <= {2'b00, pINP[9], iINP[9],nINP[7:4]};
+			ST_P1 <= {2'b11,~pINP[8],~iINP[8],stick(nINP[3:0])};
+			ST_P2 <= {2'b11,~pINP[9],~iINP[9],stick(nINP[7:4])};
 
-		SW_CC <= {nINP[15],1'b0,piINP[11],piINP[10],2'b00,iINP[13],iINP[12]};
-		SW_P1 <= {2'b00, pINP[8], iINP[8],nINP[3:0]};
-		SW_P2 <= {2'b00, pINP[9], iINP[9],nINP[7:4]};
-		ST_P1 <= {2'b11,~pINP[8],~iINP[8],stick(nINP[3:0])};
-		ST_P2 <= {2'b11,~pINP[9],~iINP[9],stick(nINP[7:4])};
-
-		if (CREDITAT) begin
-			if ( LCINPCRE > 0 ) begin
-				if ( iINP[12] & ( CREDITS < 99 ) ) begin
-					LCOINS = LCOINS+1;
-					if ( LCOINS >= LCINPCRE ) begin
-						CREDITS = CREDITS + LCREPCIN;
-						LCOINS = 0;
+			if (CREDITAT) begin
+				if ( LCINPCRE > 0 ) begin
+					if ( iINP[12] & ( CREDITS < 99 ) ) begin
+						LCOINS = LCOINS+1;
+						if ( LCOINS >= LCINPCRE ) begin
+							CREDITS = CREDITS + LCREPCIN;
+							LCOINS = 0;
+						end
+					end
+					if ( iINP[13] & ( CREDITS < 99 ) ) begin
+						RCOINS = RCOINS+1;
+						if ( RCOINS >= RCINPCRE ) begin
+							CREDITS = CREDITS + RCREPCIN;
+							RCOINS = 0;
+						end
 					end
 				end
-				if ( iINP[13] & ( CREDITS < 99 ) ) begin
-					RCOINS = RCOINS+1;
-					if ( RCOINS >= RCINPCRE ) begin
-						CREDITS = CREDITS + RCREPCIN;
-						RCOINS = 0;
-					end
-				end
+				else CREDITS = 2;
+				if ( CREDITS > 99 ) CREDITS = 99;
+
+				if ( piINP[10] & (CREDITS >= 1) ) CREDITS = CREDITS-1;
+				if ( piINP[11] & (CREDITS >= 2) ) CREDITS = CREDITS-2;
 			end
-			else CREDITS = 2;
-			if ( CREDITS > 99 ) CREDITS = 99;
 
-			if ( piINP[10] & (CREDITS >= 1) ) CREDITS = CREDITS-1;
-			if ( piINP[11] & (CREDITS >= 2) ) CREDITS = CREDITS-2;
+			pINP   <= nINP;
+			piINP0 <= iINP;
+			piINP1 <= piINP0;
+			piINP2 <= piINP1;
+			piINP  <= piINP2;		// delay start buttons
+			
 		end
-
-		pINP   <= nINP;
-		piINP0 <= iINP;
-		piINP1 <= piINP0;
-		piINP2 <= piINP1;
-		piINP  <= piINP2;		// delay start buttons
-		
+		pVBLK <= VBLK;
 	end
 end
 
