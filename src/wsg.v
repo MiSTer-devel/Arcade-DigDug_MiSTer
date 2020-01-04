@@ -171,44 +171,44 @@ reg   [1:0] phase;
 always @ ( posedge WSGCLKx4 or posedge RESET ) begin
 
    if ( RESET ) begin
-      phase  <= 0;
-      sndout <= 0;
-		outclk <= 0;
-		cc1    <= 0;
-		cc2    <= 0;
+      phase  <= 2'h0;
+      sndout <= 8'h00;
+		outclk <= 1'b0;
+		cc1    <= 8'h00;
+		cc2    <= 8'h00;
    end
    else begin
 
       case ( phase )
 
-      0: begin
+      2'h0: begin
             sndout  <= ( sndmixdown[9:2] | {8{sndmixdown[10]}} );
 
 				cc1     <= {W1,c1[15:11]};
 				cc2     <= {W2,c2[15:11]};
 
-            sndmix  <= 0;
+            sndmix  <= 10'h000;
             waveadr <= {W0,c0[19:15]};
-            wavevol <= (F0!=0) ? V0 : 0;
+            wavevol <= (F0!=0) ? V0 : 4'h0;
          end
 
-      1: begin
+      2'h1: begin
 				outclk  <= 1'b1;
             sndmix  <= sndmix + waveout;
 
             waveadr <= cc1;
-            wavevol <= (F1!=0) ? V1 : 0;
+            wavevol <= (F1!=0) ? V1 : 4'h0;
          end
 
-      2: begin
+      2'h2: begin
             sndmix  <= sndmix + waveout;
 
             waveadr <= cc2;
-            wavevol <= (F2!=0) ? V2 : 0;
+            wavevol <= (F2!=0) ? V2 : 4'h0;
          end
 
-      3: begin
-				outclk  <= 0;
+      2'h3: begin
+				outclk  <= 1'b0;
             sndmix  <= sndmix + waveout;
          end
 
@@ -216,7 +216,7 @@ always @ ( posedge WSGCLKx4 or posedge RESET ) begin
 
       endcase
 
-      phase <= phase+1;
+      phase <= phase+1'b1;
 
       c0 <= c0 + F0;
       c1 <= c1 + F1;

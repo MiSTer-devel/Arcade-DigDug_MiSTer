@@ -154,7 +154,7 @@ module CPUARB
 );
 
 reg [1:0] clkdiv;
-always @( posedge CLK48M ) clkdiv <= clkdiv+1;
+always @( posedge CLK48M ) clkdiv <= clkdiv+1'b1;
 wire CLK24M = clkdiv[0];
 wire CLK12M = clkdiv[1];
 
@@ -171,27 +171,27 @@ assign DEV_CL = CLK24M;
 
 assign DEV_AD = BUSS[0] ? CPU0AD :
 					 BUSS[1] ? CPU1AD :
-					 BUSS[2] ? CPU2AD : 0;
+					 BUSS[2] ? CPU2AD : 16'd0000;
 
 assign DEV_RD = BUSS[0] ? CPU0RD :
 					 BUSS[1] ? CPU1RD :
-					 BUSS[2] ? CPU2RD : 0;
+					 BUSS[2] ? CPU2RD : 1'b0;
 
-assign CPU0DV = BUSS[0] ? DEV_DV : 0;
-assign CPU1DV = BUSS[1] ? DEV_DV : 0;
-assign CPU2DV = BUSS[2] ? DEV_DV : 0;
+assign CPU0DV = BUSS[0] ? DEV_DV : 1'b0;
+assign CPU1DV = BUSS[1] ? DEV_DV : 1'b0;
+assign CPU2DV = BUSS[2] ? DEV_DV : 1'b0;
 
-assign CPU0DI = BUSS[0] ? DEV_DO : 0;
-assign CPU1DI = BUSS[1] ? DEV_DO : 0;
-assign CPU2DI = BUSS[2] ? DEV_DO : 0;
+assign CPU0DI = BUSS[0] ? DEV_DO : 8'h00;
+assign CPU1DI = BUSS[1] ? DEV_DO : 8'h00;
+assign CPU2DI = BUSS[2] ? DEV_DO : 8'h00;
 
 assign DEV_WR = BUSS[0] ? CPU0WR :
 					 BUSS[1] ? CPU1WR :
-					 BUSS[2] ? CPU2WR : 0;
+					 BUSS[2] ? CPU2WR : 1'b0;
 
 assign DEV_DI = BUSS[0] ? CPU0DO :
 					 BUSS[1] ? CPU1DO :
-					 BUSS[2] ? CPU2DO : 0;
+					 BUSS[2] ? CPU2DO : 8'h00;
 
 endmodule
 

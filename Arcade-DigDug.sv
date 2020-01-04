@@ -110,7 +110,7 @@ wire clk_sys = clk_hdmi;
 
 pll pll
 (
-	.rst(0),
+	.rst(1'b0),
 	.refclk(CLK_50M),
 	.outclk_0(clk_48M),
 	.outclk_1(clk_hdmi)
@@ -334,19 +334,19 @@ assign VPOS = vcnt;
 
 always @(posedge PCLK) begin
 	case (hcnt)
-		288: begin HBLK <= 1; hcnt <= hcnt+1; end
-		311: begin HSYN <= 0; hcnt <= hcnt+1; end
+		288: begin HBLK <= 1; hcnt <= hcnt+1'b1; end
+		311: begin HSYN <= 0; hcnt <= hcnt+1'b1; end
 		342: begin HSYN <= 1; hcnt <= 471;    end
 		511: begin HBLK <= 0; hcnt <= 0;
 			case (vcnt)
-				223: begin VBLK <= 1; vcnt <= vcnt+1; end
-				226: begin VSYN <= 0; vcnt <= vcnt+1; end
+				223: begin VBLK <= 1; vcnt <= vcnt+1'b1; end
+				226: begin VSYN <= 0; vcnt <= vcnt+1'b1; end
 				233: begin VSYN <= 1; vcnt <= 483;	  end
 				511: begin VBLK <= 0; vcnt <= 0;		  end
-				default: vcnt <= vcnt+1;
+				default: vcnt <= vcnt+1'b1;
 			endcase
 		end
-		default: hcnt <= hcnt+1;
+		default: hcnt <= hcnt+1'b1;
 	endcase
 	oRGB <= (HBLK|VBLK) ? 12'h0 : iRGB;
 end
