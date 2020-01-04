@@ -113,7 +113,7 @@ wire  [7:0] BGCHPI = BGCHDT << (PH[1:0]);
 wire  [1:0] BGCHPX = {BGCHPI[7],BGCHPI[3]};
 
 wire  [7:0] BGCLAD = BG_CUTOFF ? {6'h0F,BGCHPX} : {BG_COLBNK,BGSCDT[7:4],BGCHPX};
-DLROM #(8,4) bgclut(VCLKx2,BGCLAD,BGCOL, ROMCL,ROMAD[7:0],ROMDT,ROMEN & (ROMAD[15:8]==8'hDA));
+DLROM #(8,4) bgclut(VCLKx2,BGCLAD,BGCOL, ROMCL,ROMAD[7:0],ROMDT[3:0],ROMEN & (ROMAD[15:8]==8'hDA));
 
 
 //---------------------------------------
