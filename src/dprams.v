@@ -42,7 +42,7 @@ module DPR2K
 	output reg [7:0]	DO1
 );
 
-reg [7:0] core[0:2047];
+reg [7:0] core[0:2047] /* synthesis ramstyle = "no_rw_check, M10K" */;
 
 always @( posedge CL0 ) begin
 	if (EN0) begin
@@ -100,7 +100,7 @@ module DLROM #(parameter AW,parameter DW)
 	input							WE1
 );
 
-reg [DW:0] core[0:((2**AW)-1)];
+reg [DW-1:0] core[0:((2**AW)-1)] /* synthesis ramstyle = "no_rw_check, M10K" */;
 
 always @(posedge CL0) DO0 <= core[AD0];
 always @(posedge CL1) if (WE1) core[AD1] <= DI1;
@@ -121,7 +121,7 @@ module DLROMe #(parameter AW,parameter DW)
 	input							WE1
 );
 
-reg [DW:0] core[0:((2**AW)-1)];
+reg [DW-1:0] core[0:((2**AW)-1)] /* synthesis ramstyle = "no_rw_check, M10K" */;
 
 always @(posedge CL0) if (RE0) DO0 <= core[AD0];
 always @(posedge CL1) if (WE1) core[AD1] <= DI1;
