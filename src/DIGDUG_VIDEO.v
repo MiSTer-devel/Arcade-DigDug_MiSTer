@@ -39,7 +39,7 @@ module DIGDUG_VIDEO
 reg [2:0] clkdiv;
 always @( posedge CLK48M ) clkdiv <= clkdiv+1'b1;
 wire VCLKx8 = CLK48M;
-wire VCLKx4 = clkdiv[0];
+//wire VCLKx4 = clkdiv[0];
 wire VCLKx2 = clkdiv[1];
 wire VCLK   = clkdiv[2];
 
