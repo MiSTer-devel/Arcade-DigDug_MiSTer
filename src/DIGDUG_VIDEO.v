@@ -37,9 +37,9 @@ module DIGDUG_VIDEO
 //  Clock Generator
 //---------------------------------------
 reg [2:0] clkdiv;
-always @( posedge CLK48M ) clkdiv <= clkdiv+1;
+always @( posedge CLK48M ) clkdiv <= clkdiv+1'b1;
 wire VCLKx8 = CLK48M;
-wire VCLKx4 = clkdiv[0];
+//wire VCLKx4 = clkdiv[0];
 wire VCLKx2 = clkdiv[1];
 wire VCLK   = clkdiv[2];
 
@@ -49,7 +49,7 @@ wire VCLK   = clkdiv[2];
 //---------------------------------------
 reg [8:0] PH, PV;
 always@( posedge VCLK ) begin
-	PH <= POSH+1;
+	PH <= POSH+1'b1;
 	PV <= POSV+(POSH>=504);
 end
 
@@ -57,8 +57,8 @@ end
 //---------------------------------------
 //  VRAM Scan Address Generator
 //---------------------------------------
-wire  [5:0] SCOL = PH[8:3]-2;
-wire  [5:0] SROW = PV[8:3]+2;
+wire  [5:0] SCOL = PH[8:3]-2'd2;
+wire  [5:0] SROW = PV[8:3]+2'd2;
 wire  [9:0] VSAD = SCOL[5] ? {SCOL[4:0],SROW[4:0]} : {SROW[4:0],SCOL[4:0]};
 
 
@@ -70,7 +70,7 @@ wire  [4:0]	SPCOL;
 DIGDUG_SPRITE sprite
 (
 	.RCLK(VCLKx8),.VCLK(VCLK),.VCLKx2(VCLKx2),
-	.POSH(PH-1),.POSV(PV),
+	.POSH(PH-1'b1),.POSV(PV),
 	.SPATCL(SPATCL),.SPATAD(SPATAD),.SPATDT(SPATDT),
 
 	.SPCOL(SPCOL),
@@ -113,7 +113,7 @@ wire  [7:0] BGCHPI = BGCHDT << (PH[1:0]);
 wire  [1:0] BGCHPX = {BGCHPI[7],BGCHPI[3]};
 
 wire  [7:0] BGCLAD = BG_CUTOFF ? {6'h0F,BGCHPX} : {BG_COLBNK,BGSCDT[7:4],BGCHPX};
-DLROM #(8,4) bgclut(VCLKx2,BGCLAD,BGCOL, ROMCL,ROMAD[7:0],ROMDT,ROMEN & (ROMAD[15:8]==8'hDA));
+DLROM #(8,4) bgclut(VCLKx2,BGCLAD,BGCOL, ROMCL,ROMAD[7:0],ROMDT[3:0],ROMEN & (ROMAD[15:8]==8'hDA));
 
 
 //---------------------------------------
@@ -123,7 +123,7 @@ wire [4:0] CMIX = SPCOL[4] ? {1'b1,SPCOL[3:0]} : FGCOL[4] ? {1'b0,FGCOL[3:0]} : 
 
 DLROM #(5,8) palet( VCLK, CMIX, POUT, ROMCL,ROMAD[4:0],ROMDT,ROMEN & (ROMAD[15:5]=={8'hDB,3'b000}) );
 assign PCLK = ~VCLK;
-assign VBLK = (PH<64)&(PV==224);
+assign VBLK = (PH<9'd64)&(PV==9'd224);
 
 endmodule
 

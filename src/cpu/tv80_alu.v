@@ -58,7 +58,7 @@ module tv80_alu (/*AUTOARG*/
     input Sub;
     input Carry_In;
     begin
-      AddSub4 = { 1'b0, A } + { 1'b0, (Sub)?~B:B } + Carry_In;
+      AddSub4 = { 1'b0, A } + { 1'b0, (Sub)?~B:B } + {4'h0,Carry_In};
     end
   endfunction // AddSub4
   
@@ -68,7 +68,7 @@ module tv80_alu (/*AUTOARG*/
     input Sub;
     input Carry_In;
     begin
-      AddSub3 = { 1'b0, A } + { 1'b0, (Sub)?~B:B } + Carry_In;
+      AddSub3 = { 1'b0, A } + { 1'b0, (Sub)?~B:B } + {3'h0,Carry_In};
     end
   endfunction // AddSub4
 
@@ -78,7 +78,7 @@ module tv80_alu (/*AUTOARG*/
     input Sub;
     input Carry_In;
     begin
-      AddSub1 = { 1'b0, A } + { 1'b0, (Sub)?~B:B } + Carry_In;
+      AddSub1 = { 1'b0, A } + { 1'b0, (Sub)?~B:B } + {1'h0,Carry_In};
     end
   endfunction // AddSub4
 
@@ -231,13 +231,13 @@ module tv80_alu (/*AUTOARG*/
                       begin
 			F_Out[Flag_H] = 1'b0;
 		      end
-		    DAA_Q = DAA_Q + 6;
+		    DAA_Q = DAA_Q + 9'd6;
 		  end // if (DAA_Q[3:0] > 9 || F_In[Flag_H] == 1'b1 )
                 
 		// new Ahigh > 9 || C == 1
 		if (DAA_Q[8:4] > 9 || F_In[Flag_C] == 1'b1 ) 
                   begin
-		    DAA_Q = DAA_Q + 96; // 0x60
+		    DAA_Q = DAA_Q + 9'd96; // 0x60
 		  end
 	      end 
             else 
@@ -249,11 +249,11 @@ module tv80_alu (/*AUTOARG*/
                       begin
 			F_Out[Flag_H] = 1'b0;
 		      end
-		    DAA_Q[7:0] = DAA_Q[7:0] - 6;
+		    DAA_Q[7:0] = DAA_Q[7:0] - 8'd6;
 		  end
 		if (BusA > 153 || F_In[Flag_C] == 1'b1 ) 
                   begin
-		    DAA_Q = DAA_Q - 352; // 0x160
+		    DAA_Q = DAA_Q - 9'd352; // 0x160
 		  end
 	      end // else: !if(F_In[Flag_N] == 1'b0 )
             

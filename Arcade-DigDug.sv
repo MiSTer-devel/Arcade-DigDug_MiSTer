@@ -110,7 +110,7 @@ wire clk_sys = clk_hdmi;
 
 pll pll
 (
-	.rst(0),
+	.rst(1'b0),
 	.refclk(CLK_50M),
 	.outclk_0(clk_48M),
 	.outclk_1(clk_hdmi)
@@ -303,7 +303,7 @@ FPGA_DIGDUG GameCore (
 	.PH(HPOS),.PV(VPOS),.PCLK(PCLK),.POUT(oPIX),
 	.SOUT(oSND),
 	
-	.ROMCL(clk_sys),.ROMAD(ioctl_addr),.ROMDT(ioctl_dout),.ROMEN(ioctl_wr)
+	.ROMCL(clk_sys),.ROMAD(ioctl_addr[15:0]),.ROMDT(ioctl_dout),.ROMEN(ioctl_wr)
 );
 
 assign POUT = {oPIX[7:6],2'b00,oPIX[5:3],1'b0,oPIX[2:0],1'b0};
@@ -334,19 +334,19 @@ assign VPOS = vcnt;
 
 always @(posedge PCLK) begin
 	case (hcnt)
-		288: begin HBLK <= 1; hcnt <= hcnt+1; end
-		311: begin HSYN <= 0; hcnt <= hcnt+1; end
+		288: begin HBLK <= 1; hcnt <= hcnt+1'b1; end
+		311: begin HSYN <= 0; hcnt <= hcnt+1'b1; end
 		342: begin HSYN <= 1; hcnt <= 471;    end
 		511: begin HBLK <= 0; hcnt <= 0;
 			case (vcnt)
-				223: begin VBLK <= 1; vcnt <= vcnt+1; end
-				226: begin VSYN <= 0; vcnt <= vcnt+1; end
+				223: begin VBLK <= 1; vcnt <= vcnt+1'b1; end
+				226: begin VSYN <= 0; vcnt <= vcnt+1'b1; end
 				233: begin VSYN <= 1; vcnt <= 483;	  end
 				511: begin VBLK <= 0; vcnt <= 0;		  end
-				default: vcnt <= vcnt+1;
+				default: vcnt <= vcnt+1'b1;
 			endcase
 		end
-		default: hcnt <= hcnt+1;
+		default: hcnt <= hcnt+1'b1;
 	endcase
 	oRGB <= (HBLK|VBLK) ? 12'h0 : iRGB;
 end

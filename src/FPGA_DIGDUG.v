@@ -66,7 +66,7 @@ wire 			WAVECL;
 wire [7:0]	WAVEAD;
 wire [3:0]	WAVEDT;
 
-DLROM #(8,4) wave(WAVECL,WAVEAD,WAVEDT, ROMCL,ROMAD[7:0],ROMDT,ROMEN & (ROMAD[15:8]==8'hD8));
+DLROM #(8,4) wave(WAVECL,WAVEAD,WAVEDT, ROMCL,ROMAD[7:0],ROMDT[3:0],ROMEN & (ROMAD[15:8]==8'hD8));
 
 
 //-----------------------------------------------

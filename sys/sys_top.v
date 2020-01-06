@@ -534,7 +534,7 @@ ascal
 	.vmin     (vmin),
 	.vmax     (vmax),
 
-	.mode     ({~lowlat,FB_EN ? FB_FLT : |scaler_flt,2'b00}),
+	.mode     ({1'b0,~lowlat,FB_EN ? FB_FLT : |scaler_flt,2'b00}),
 	.poly_clk (clk_sys),
 	.poly_a   (coef_addr),
 	.poly_dw  (coef_data),
@@ -711,7 +711,7 @@ pll_cfg pll_cfg
 	.mgmt_clk(FPGA_CLK1_50),
 	.mgmt_reset(reset_req),
 	.mgmt_waitrequest(cfg_waitrequest),
-	.mgmt_read(0),
+	.mgmt_read(1'b0),
 	.mgmt_readdata(),
 	.mgmt_write(cfg_write),
 	.mgmt_address(cfg_address),
@@ -720,34 +720,34 @@ pll_cfg pll_cfg
 	.reconfig_from_pll(reconfig_from_pll)
 );
 
-reg cfg_ready = 0;
+reg cfg_ready = 1'b0;
 
 always @(posedge FPGA_CLK1_50) begin
-	reg gotd = 0, gotd2 = 0;
-	reg custd = 0, custd2 = 0;
-	reg old_wait = 0;
+	reg gotd = 1'b0, gotd2 = 1'b0;
+	reg custd = 1'b0, custd2 = 1'b0;
+	reg old_wait = 1'b0;
 
 	gotd  <= cfg_got;
 	gotd2 <= gotd;
 	
-	adj_write <= 0;
+	adj_write <= 1'b0;
 	
 	custd <= cfg_custom_t;
 	custd2 <= custd;
 	if(custd2 != custd & ~gotd) begin
 		adj_address <= cfg_custom_p1;
 		adj_data <= cfg_custom_p2;
-		adj_write <= 1;
+		adj_write <= 1'b1;
 	end
 
 	if(~gotd2 & gotd) begin
-		adj_address <= 2;
-		adj_data <= 0;
-		adj_write <= 1;
+		adj_address <= 6'd2;
+		adj_data <= 32'd0;
+		adj_write <= 1'b1;
 	end
 
 	old_wait <= adj_waitrequest;
-	if(old_wait & ~adj_waitrequest & gotd) cfg_ready <= 1;
+	if(old_wait & ~adj_waitrequest & gotd) cfg_ready <= 1'b1;
 end
 
 wire hdmi_config_done;
@@ -824,10 +824,10 @@ always @(posedge clk_vid) begin
 			old_vs <= vga_vs_osd;
 			if(~&vcnt) vcnt <= vcnt + 1'd1;
 			if(~old_vs & vga_vs_osd & ~f1) vsz <= vcnt;
-			if(old_vs & ~vga_vs_osd) vcnt <= 0;
+			if(old_vs & ~vga_vs_osd) vcnt <= 13'd0;
 			
-			if(vcnt == 1) vde <= 1;
-			if(vcnt == vsz - 3) vde <= 0;
+			if(vcnt == 13'd1) vde <= 1'b1;
+			if(vcnt == vsz - 2'd3) vde <= 1'b0;
 		end
 
 		dv_de1 <= !{hss,vga_hs_osd} && vde;
@@ -953,7 +953,7 @@ csync csync_vga(clk_vid, vga_hs_osd, vga_vs_osd, vga_cs_osd);
 	wire [23:0] vga_o;
 	vga_out vga_out
 	(
-		.ypbpr_full(0),
+		.ypbpr_full(1'b0),
 		.ypbpr_en(ypbpr_en),
 		.dout(vga_o),
 		.din(vga_scaler ? {24{hdmi_de_osd}} & hdmi_data_osd : vga_data_osd)

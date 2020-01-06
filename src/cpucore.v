@@ -35,7 +35,7 @@ tv80s core(
 	.rd_n(m_rd),
 	.wr_n(m_wr),
 	.A(m_ad),
-	.do(m_do),
+	.dout(m_do),
 
 	.reset_n(~RESET),
 	.clk(CLK),

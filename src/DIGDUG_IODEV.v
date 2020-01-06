@@ -148,19 +148,19 @@ module DIGDUG_CLATCH
 // OSC 120Hz
 `define H120FLOW	(12500)
 reg  [3:0] clkdiv;
-always @( posedge CL ) clkdiv <= clkdiv+1;
+always @( posedge CL ) clkdiv <= clkdiv+1'b1;
 reg [13:0] H120CNT;
 always @( posedge clkdiv[3] or posedge RESET ) begin
 	if (RESET) H120CNT <= 0;
-	else H120CNT <= (H120CNT==`H120FLOW) ? 0 : (H120CNT+1);
+	else H120CNT <= (H120CNT==`H120FLOW) ? 14'd0 : (H120CNT+1'b1);
 end
-wire H120 = ( H120CNT >= (`H120FLOW-200) ) ? 1'b1 : 0;
+wire H120 = ( H120CNT >= (`H120FLOW-200) ) ? 1'b1 : 1'b0;
 
 
 reg IRQ0EN, IRQ0LC;
 reg IRQ1EN, IRQ1LC;
 reg NMI2EN, NMI2LC;
-reg			NMI0LC;
+//reg			NMI0LC;
 
 reg C12RST = 1'b1;
 reg pH120;
@@ -170,7 +170,7 @@ always @( posedge CL or posedge RESET ) begin
 		IRQ0EN <= 1'b0; IRQ0LC <= 1'b0;
 		IRQ1EN <= 1'b0; IRQ1LC <= 1'b0;
 		NMI2EN <= 1'b0; NMI2LC <= 1'b0;
-		C12RST <= 1'b1; NMI0LC <= 1'b0;
+		C12RST <= 1'b1; //NMI0LC <= 1'b0;
 		pH120  <= 1'b0;
 	end
 	else begin

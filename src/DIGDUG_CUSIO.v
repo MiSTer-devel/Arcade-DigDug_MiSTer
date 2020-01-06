@@ -43,9 +43,9 @@ always @( posedge CL ) begin
 		if ( CLK50uc == 2200 ) CLK50u <= 1'b1;
 		if ( CLK50uc == 2400 ) begin
 			CLK50u  <= 1'b0;
-			CLK50uc <= 0;
+			CLK50uc <= 12'h000;
 		end
-		else CLK50uc <= CLK50uc + 1;
+		else CLK50uc <= CLK50uc + 1'b1;
 	end
 end
 
@@ -55,7 +55,7 @@ assign NMI0 = NMI0EN & CLK50u;
 always @( posedge CL or posedge RESET ) begin
 	if (RESET) begin
 		NMI0EN  <= 0;
-		MODE    <= 0;
+		MODE    <= 1'b0;
 		COMMAND <= 0;
 
 		LCINPCRE <= 0;
@@ -69,7 +69,7 @@ always @( posedge CL or posedge RESET ) begin
 			if (AD[4]) begin
 				// command write
 				COMMAND <= DI;
-				MODE    <= (DI==8'hA1) ? 1'b1 : ((DI==8'hC1)|(DI==8'hE1)) ? 0 : MODE;
+				MODE    <= (DI==8'hA1) ? 1'b1 : ((DI==8'hC1)|(DI==8'hE1)) ? 1'b0 : MODE;
 				NMI0EN  <= (DI!=8'h10);
 			end
 			else begin
@@ -140,10 +140,10 @@ wire [15:0] iINP = (pINP^nINP) & nINP;
 
 function [3:0] stick;
 input [3:0] stk;
-	stick =  stk[0] ? 0 :
-			   stk[1] ? 2 :
-			   stk[2] ? 4 :
-			   stk[3] ? 6 : 8;
+	stick =  stk[0] ? 4'h0 :
+			   stk[1] ? 4'h2 :
+			   stk[2] ? 4'h4 :
+			   stk[3] ? 4'h6 : 4'h8;
 endfunction
 
 reg pVBLK = 1'b0;
@@ -179,14 +179,14 @@ always @( posedge CL or posedge RESET ) begin
 			if (CREDITAT) begin
 				if ( LCINPCRE > 0 ) begin
 					if ( iINP[12] & ( CREDITS < 99 ) ) begin
-						LCOINS = LCOINS+1;
+						LCOINS = LCOINS+1'b1;
 						if ( LCOINS >= LCINPCRE ) begin
 							CREDITS = CREDITS + LCREPCIN;
 							LCOINS = 0;
 						end
 					end
 					if ( iINP[13] & ( CREDITS < 99 ) ) begin
-						RCOINS = RCOINS+1;
+						RCOINS = RCOINS+1'b1;
 						if ( RCOINS >= RCINPCRE ) begin
 							CREDITS = CREDITS + RCREPCIN;
 							RCOINS = 0;
@@ -196,8 +196,8 @@ always @( posedge CL or posedge RESET ) begin
 				else CREDITS = 2;
 				if ( CREDITS > 99 ) CREDITS = 99;
 
-				if ( piINP[10] & (CREDITS >= 1) ) CREDITS = CREDITS-1;
-				if ( piINP[11] & (CREDITS >= 2) ) CREDITS = CREDITS-2;
+				if ( piINP[10] & (CREDITS >= 1) ) CREDITS = CREDITS-1'b1;
+				if ( piINP[11] & (CREDITS >= 2) ) CREDITS = CREDITS-2'd2;
 			end
 
 			pINP   <= nINP;

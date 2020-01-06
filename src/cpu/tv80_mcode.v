@@ -2,7 +2,7 @@
 // TV80 8-Bit Microprocessor Core
 // Based on the VHDL T80 core by Daniel Wallner (jesus@opencores.org)
 //
-// Copyright (c) 2004 Guy Hutchison (ghutchis@opencores.org)
+// Copyright (c) 2004,2007 Guy Hutchison (ghutchis@opencores.org)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -162,16 +162,16 @@ module tv80_mcode
   //    constant aZI    : std_logic_vector[2:0] = 3'b110;
 
   function is_cc_true;
-    input [7:0] F;
+    input [7:0] FF;
     input [2:0] cc;
     begin
       if (Mode == 3 ) 
         begin
           case (cc)
-            3'b000  : is_cc_true = F[7] == 1'b0; // NZ
-            3'b001  : is_cc_true = F[7] == 1'b1; // Z
-            3'b010  : is_cc_true = F[4] == 1'b0; // NC
-            3'b011  : is_cc_true = F[4] == 1'b1; // C
+            3'b000  : is_cc_true = FF[7] == 1'b0; // NZ
+            3'b001  : is_cc_true = FF[7] == 1'b1; // Z
+            3'b010  : is_cc_true = FF[4] == 1'b0; // NC
+            3'b011  : is_cc_true = FF[4] == 1'b1; // C
             3'b100  : is_cc_true = 0;
             3'b101  : is_cc_true = 0;
             3'b110  : is_cc_true = 0;
@@ -181,14 +181,14 @@ module tv80_mcode
       else 
         begin
           case (cc)
-            3'b000  : is_cc_true = F[6] == 1'b0; // NZ
-            3'b001  : is_cc_true = F[6] == 1'b1; // Z
-            3'b010  : is_cc_true = F[0] == 1'b0; // NC
-            3'b011  : is_cc_true = F[0] == 1'b1; // C
-            3'b100  : is_cc_true = F[2] == 1'b0; // PO
-            3'b101  : is_cc_true = F[2] == 1'b1; // PE
-            3'b110  : is_cc_true = F[7] == 1'b0; // P
-            3'b111  : is_cc_true = F[7] == 1'b1; // M
+            3'b000  : is_cc_true = FF[6] == 1'b0; // NZ
+            3'b001  : is_cc_true = FF[6] == 1'b1; // Z
+            3'b010  : is_cc_true = FF[0] == 1'b0; // NC
+            3'b011  : is_cc_true = FF[0] == 1'b1; // C
+            3'b100  : is_cc_true = FF[2] == 1'b0; // PO
+            3'b101  : is_cc_true = FF[2] == 1'b1; // PE
+            3'b110  : is_cc_true = FF[7] == 1'b0; // P
+            3'b111  : is_cc_true = FF[7] == 1'b1; // M
           endcase
         end
     end
@@ -270,9 +270,9 @@ module tv80_mcode
             //
             //----------------------------------------------------------------------------
 
-            casex (IR)
+            casez (IR)
               // 8 BIT LOAD GROUP
-              8'b01xxxxxx :
+              8'b01zzzzzz :
                 begin
                   if (IR[5:0] == 6'b110110)
                     Halt = 1'b1;
@@ -308,9 +308,9 @@ module tv80_mcode
                       Set_BusA_To[2:0] = DDD;
                       Read_To_Reg = 1'b1;
                     end // else: !if(IR[5:3] == 3'b110)
-                end // case: 8'b01xxxxxx                                    
+                end // case: 8'b01zzzzzz                                    
 
-              8'b00xxx110 :
+              8'b00zzz110 :
                 begin
                   if (IR[5:3] == 3'b110)
                     begin
@@ -623,7 +623,7 @@ module tv80_mcode
                   LDSPHL = 1'b1;
                 end
               
-              8'b11xx0101 :
+              8'b11zz0101 :
                 begin
                   // PUSH qq
                   MCycles = 3'b011;
@@ -668,7 +668,7 @@ module tv80_mcode
                   endcase // case(MCycle)
                 end // case: 8'b11000101,8'b11010101,8'b11100101,8'b11110101
               
-              8'b11xx0001 :
+              8'b11zz0001 :
                 begin
                   // POP qq
                   MCycles = 3'b011;
@@ -839,7 +839,7 @@ module tv80_mcode
               
 
               // 8 BIT ARITHMETIC AND LOGICAL GROUP
-              8'b10xxxxxx :
+              8'b10zzzzzz :
                 begin
                   if (IR[2:0] == 3'b110)
                     begin
@@ -883,7 +883,7 @@ module tv80_mcode
                     end // else: !if(IR[2:0] == 3'b110)                  
                 end // case: 8'b10000000,8'b10000001,8'b10000010,8'b10000011,8'b10000100,8'b10000101,8'b10000111,...
               
-              8'b11xxx110 :
+              8'b11zzz110 :
                 begin
                   // ADD A,n
                   // ADC A,n
@@ -904,7 +904,7 @@ module tv80_mcode
                     end
                 end
               
-              8'b00xxx100 :
+              8'b00zzz100 :
                 begin
                   if (IR[5:3] == 3'b110)
                     begin
@@ -942,7 +942,7 @@ module tv80_mcode
                     end
                 end
               
-              8'b00xxx101 :
+              8'b00zzz101 :
                 begin               
                   if (IR[5:3] == 3'b110)
                     begin
@@ -1087,7 +1087,7 @@ module tv80_mcode
                 SetEI = 1'b1;
 
               // 16 BIT ARITHMETIC GROUP
-              8'b00001001,8'b00011001,8'b00101001,8'b00111001  :
+              8'b00zz1001  :
                 begin
                   // ADD HL,ss
                   MCycles = 3'b011;
@@ -1134,7 +1134,7 @@ module tv80_mcode
                   endcase // case(MCycle)
                 end // case: 8'b00001001,8'b00011001,8'b00101001,8'b00111001              
               
-              8'b00000011,8'b00010011,8'b00100011,8'b00110011  :
+              8'b00zz0011 :
                 begin
                   // INC ss
                   TStates = 3'b110;
@@ -1142,7 +1142,7 @@ module tv80_mcode
                   IncDec_16[1:0] = DPAIR;
                 end
               
-              8'b00001011,8'b00011011,8'b00101011,8'b00111011  :
+              8'b00zz1011 :
                 begin
                   // DEC ss
                   TStates = 3'b110;
@@ -1186,7 +1186,7 @@ module tv80_mcode
                   
                 end // case: 8'b11000011
               
-              8'b11xxx010  :
+              8'b11zzz010  :
                 begin
                   if (IR[5] == 1'b1 && Mode == 3 ) 
                     begin
@@ -1318,7 +1318,7 @@ module tv80_mcode
                 end // case: 8'b00011000
 
               // Conditional relative jumps (JR [C/NC/Z/NZ], e)
-              8'b001xx000  :
+              8'b001zz000  :
                 begin
                   if (Mode != 2 ) 
                     begin
@@ -1425,7 +1425,7 @@ module tv80_mcode
                   endcase // case(MCycle)
                 end // case: 8'b11001101
               
-              8'b11000100,8'b11001100,8'b11010100,8'b11011100,8'b11100100,8'b11101100,8'b11110100,8'b11111100  :
+              8'b11zzz100  :
                 begin
                   if (IR[5] == 1'b0 || Mode != 3 ) 
                     begin
@@ -1643,7 +1643,7 @@ module tv80_mcode
                     end // else: !if(IR[5] == 1'b1 && Mode == 3 )
                 end // case: 8'b11000000,8'b11001000,8'b11010000,8'b11011000,8'b11100000,8'b11101000,8'b11110000,8'b11111000
               
-              8'b11000111,8'b11001111,8'b11010111,8'b11011111,8'b11100111,8'b11101111,8'b11110111,8'b11111111  :
+              8'b11zz0111,8'b11zz1111  :
                 begin
                   // RST p
                   MCycles = 3'b011;
@@ -1772,7 +1772,7 @@ module tv80_mcode
             Set_BusA_To[2:0] = IR[2:0];
             Set_BusB_To[2:0] = IR[2:0];
             
-            case (IR)
+            casez (IR)
               8'b00000000,8'b00000001,8'b00000010,8'b00000011,8'b00000100,8'b00000101,8'b00000111,
               8'b00010000,8'b00010001,8'b00010010,8'b00010011,8'b00010100,8'b00010101,8'b00010111,
               8'b00001000,8'b00001001,8'b00001010,8'b00001011,8'b00001100,8'b00001101,8'b00001111,
@@ -1797,8 +1797,7 @@ module tv80_mcode
                   end
                 end // case: 8'b00000000,8'b00000001,8'b00000010,8'b00000011,8'b00000100,8'b00000101,8'b00000111,...
               
-              8'b00000110, 8'b00001110, 8'b00010110, 8'b00011110,
-              8'b00100110, 8'b00101110, 8'b00110110, 8'b00111110 :
+              8'b00zzz110  :
                 begin
                   // RLC (HL)
                   // RL (HL)
@@ -1953,7 +1952,7 @@ module tv80_mcode
             //
             //----------------------------------------------------------------------------
 
-            case (IR)
+            casez (IR)
 	      /*
 	       * Undocumented NOP instructions commented out to reduce size of mcode
 	       *
@@ -2576,6 +2575,8 @@ module tv80_mcode
                   endcase // case(MCycle)
                 end // case: 8'b10100011 , 8'b10101011 , 8'b10110011 , 8'b10111011
               
+              default : ;
+
             endcase // case(IR)                  
           end // block: default_ed_block        
       endcase // case(ISet)
@@ -2646,8 +2647,4 @@ module tv80_mcode
         end // if (Mode < 2 )      
       
     end // always @ (IR, ISet, MCycle, F, NMICycle, IntCycle)
-  
-  // synopsys dc_script_begin
-  // set_attribute current_design "revision" "$Id: tv80_mcode.v,v 1.6 2005/12/13 19:17:09 ghutchis Exp $" -type string -quiet
-  // synopsys dc_script_end
 endmodule // T80_MCode
