@@ -75,18 +75,18 @@ module emu
 	output [15:0] AUDIO_R,
 	output        AUDIO_S,   // 1 - signed audio samples, 0 - unsigned
 
-        //High latency DDR3 RAM interface
-        //Use for non-critical time purposes
-        output        DDRAM_CLK,
-        input         DDRAM_BUSY,
-        output  [7:0] DDRAM_BURSTCNT,
-        output [28:0] DDRAM_ADDR,
-        input  [63:0] DDRAM_DOUT,
-        input         DDRAM_DOUT_READY,
-        output        DDRAM_RD,
-        output [63:0] DDRAM_DIN,
-        output  [7:0] DDRAM_BE,
-        output        DDRAM_WE,
+	//High latency DDR3 RAM interface
+	//Use for non-critical time purposes
+	output        DDRAM_CLK,
+	input         DDRAM_BUSY,
+	output  [7:0] DDRAM_BURSTCNT,
+	output [28:0] DDRAM_ADDR,
+	input  [63:0] DDRAM_DOUT,
+	input         DDRAM_DOUT_READY,
+	output        DDRAM_RD,
+	output [63:0] DDRAM_DIN,
+	output  [7:0] DDRAM_BE,
+	output        DDRAM_WE,
 
 	// Open-drain User port.
 	// 0 - D+/RX
@@ -115,8 +115,8 @@ assign VIDEO_ARY = (!ar) ? ((status[2] ) ? 8'd3 : 8'd4) : 12'd0;
 `include "build_id.v" 
 localparam CONF_STR = {
 	"A.DIGDUG;;",
-        "H0OJK,Aspect ratio,Original,Full Screen,[ARC1],[ARC2];",
-	"O2,Orientation,Vert,Horz;",
+	"H0OJK,Aspect ratio,Original,Full Screen,[ARC1],[ARC2];",
+	"H0O2,Orientation,Vert,Horz;",
 	"O35,Scandoubler Fx,None,HQ2x,CRT 25%,CRT 50%,CRT 75%;",
 	"-;",
 	"O89,Difficulty,Medium,Hardest,Easy,Hard;",
@@ -130,7 +130,7 @@ localparam CONF_STR = {
 	"-;",
 	"R0,Reset;",
 	"J1,Pump,Start 1P,Start 2P,Coin;",
-	"Jn,A,Start,Select,Right;",
+	"jn,A,Start,Select,R;",
 	"V,v",`BUILD_DATE
 };
 
@@ -155,6 +155,7 @@ wire [31:0] status;
 wire  [1:0] buttons;
 wire        forced_scandoubler;
 wire [21:0] gamma_bus;
+wire        direct_video;
 
 wire        ioctl_download;
 wire        ioctl_wr;
@@ -175,6 +176,8 @@ hps_io #(.STRLEN($size(CONF_STR)>>3)) hps_io
 	.status(status),
 	.forced_scandoubler(forced_scandoubler),
 	.gamma_bus(gamma_bus),
+	.direct_video(direct_video),
+	.status_menumask(direct_video),
 
 	.ioctl_download(ioctl_download),
 	.ioctl_wr(ioctl_wr),
@@ -223,7 +226,7 @@ always @(posedge clk_hdmi) begin
 	ce_pix  <= old_clk & ~ce_vid;
 end
 
-wire no_rotate=status[2];
+wire no_rotate=status[2]|direct_video;
 wire rotate_ccw=1'b0;
 screen_rotate screen_rotate (.*);
 
