@@ -10,7 +10,8 @@ module CPUCORE
 	input	  			DV,
 	input	  [7:0]	DI,
 	input	  [7:0]	IR,
-	output  [7:0]	DO
+	output  [7:0]	DO,
+	input				PAUSE
 );
 	
 wire  [7:0] m_do;
@@ -39,7 +40,7 @@ tv80s core(
 
 	.reset_n(~RESET),
 	.clk(CLK),
-	.wait_n(1'b1),
+	.wait_n(~PAUSE),
 	.int_n(m_irq),
 	.nmi_n(m_nmi),
 	.busrq_n(1'b1),

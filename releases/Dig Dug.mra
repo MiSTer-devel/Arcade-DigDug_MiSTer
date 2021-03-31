@@ -27,4 +27,11 @@
 		<part crc="e9b3e08e" name="136007.112"/>
 		<part crc="4cb9da99" name="136007.113"/>
 	</rom>
+	<rom index="3" md5="none">
+		<part>
+		2A EA 54 00 00 FF 00 02 00 02 00 01 00 FF 00 00
+		00 00 89 A0 00 25 01 01
+		</part>
+	</rom>
+	<nvram index="4" size="37"/>
 </misterromdescription>

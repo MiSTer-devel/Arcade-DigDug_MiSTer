@@ -45,7 +45,13 @@ module DIGDUG_IODEV
 	output  [1:0]	BG_SELECT,	// Video Ctrl.
 	output  [1:0]	BG_COLBNK,
 	output 			BG_CUTOFF,
-	output 			FG_CLMODE
+	output 			FG_CLMODE,
+
+	input  [10:0]	hs_address,
+	output [7:0]	hs_data_out,
+	input  [7:0]	hs_data_in,
+	input				hs_write,
+	input				hs_access
 
 );
 
@@ -55,10 +61,20 @@ wire CSM1 = (AD[15:11] == 5'b1000_1);	// $8800-$8FFF
 wire CSM2 = (AD[15:11] == 5'b1001_0);	// $9000-$97FF
 wire CSM3 = (AD[15:11] == 5'b1001_1);	// $9800-$9FFF
 
-wire [10:0] MAD = AD[10:0];
-wire  [7:0] DOM0, DOM1, DOM2, DOM3;
+wire [10:0]	MAD = AD[10:0];
+wire	[7:0]	DOM0, DOM1, DOM2, DOM3;
+
+// Hiscore mux into ram1
+wire [10:0]	ram1_MAD = hs_access ? hs_address : MAD;
+wire			ram1_CSM1 = hs_access ? 1'b1 : CSM1;
+wire 			ram1_WR = hs_access ? hs_write : WR;
+wire 	[7:0]	ram1_DI = hs_access ? hs_data_in : DI;
+wire	[7:0]	ram1_DOM1;
+assign hs_data_out = hs_access ? ram1_DOM1 : 8'b00000000;
+assign DOM1 = ~hs_access ? ram1_DOM1 : 8'b00000000;
+
 DPR2KV ram0( CL, MAD, CSM0, WR, DI, DOM0, FGSCCL, {1'b0,FGSCAD}, FGSCDT );				// (FGTX) $8000-$8300
-DPR2KV ram1( CL, MAD, CSM1, WR, DI, DOM1, SPATCL, {4'h7,SPATAD}, SPATDT[ 7: 0] );	// (SPA0) $8B80-$8BFF
+DPR2KV ram1( CL, ram1_MAD, ram1_CSM1, ram1_WR, ram1_DI, ram1_DOM1, SPATCL, {4'h7,SPATAD}, SPATDT[ 7: 0] );	// (SPA0) $8B80-$8BFF
 DPR2KV ram2( CL, MAD, CSM2, WR, DI, DOM2, SPATCL, {4'h7,SPATAD}, SPATDT[15: 8] );	// (SPA1) $9380-$93FF
 DPR2KV ram3( CL, MAD, CSM3, WR, DI, DOM3, SPATCL, {4'h7,SPATAD}, SPATDT[23:16] );	// (SPA2) $9B80-$9BFF
 

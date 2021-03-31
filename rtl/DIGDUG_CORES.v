@@ -23,7 +23,9 @@ module DIGDUG_CORES
 	input				ROMCL,		// Downloaded ROM image
 	input  [15:0]	ROMAD,
 	input	  [7:0]	ROMDT,
-	input				ROMEN
+	input				ROMEN,
+
+	input				PAUSE
 );
 
 //-----------------------------------------------
@@ -48,7 +50,8 @@ CPUCORE cpu0 (
 	.IRQ(IRQS[0]),.NMI(NMI0),
 	.AD(CPU0AD),.IR(CPU0IR),
 	.RD(CPU0RD),.DV(CPU0DV),.DI(CPU0DI),
-	.WR(CPU0WR),.DO(CPU0DO)
+	.WR(CPU0WR),.DO(CPU0DO),
+	.PAUSE(PAUSE)
 );
 
 
@@ -71,7 +74,8 @@ CPUCORE cpu1 (
 	.IRQ(IRQS[1]),.NMI(NMIS[1]),
 	.AD(CPU1AD),.IR(CPU1IR),
 	.RD(CPU1RD),.DV(CPU1DV),.DI(CPU1DI),
-	.WR(CPU1WR),.DO(CPU1DO)
+	.WR(CPU1WR),.DO(CPU1DO),
+	.PAUSE(PAUSE)
 );
 
 
@@ -97,7 +101,8 @@ CPUCORE cpu2 (
 	.IRQ(IRQS[2]),.NMI(NMI2),
 	.AD(CPU2AD),.IR(CPU2IR),
 	.RD(CPU2RD),.DV(CPU2DV),.DI(CPU2DI),
-	.WR(CPU2WR),.DO(CPU2DO)
+	.WR(CPU2WR),.DO(CPU2DO),
+	.PAUSE(PAUSE)
 );
 
 
