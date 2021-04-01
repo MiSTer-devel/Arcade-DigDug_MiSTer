@@ -26,7 +26,15 @@ module FPGA_DIGDUG
 	input				ROMCL,		// Downloaded ROM image
 	input  [15:0]	ROMAD,
 	input	  [7:0]	ROMDT,
-	input				ROMEN
+	input				ROMEN,
+
+	input 			PAUSE,
+
+	input  [10:0]	hs_address,
+	output [7:0]	hs_data_out,
+	input  [7:0]	hs_data_in,
+	input				hs_write,
+	input				hs_access
 );
 
 // Common I/O Device Bus
@@ -53,7 +61,9 @@ DIGDUG_CORES cores
 	.DEV_RD(DEV_RD),.DEV_DV(DEV_DV),.DEV_DO(DEV_DO),
 	.DEV_WR(DEV_WR),.DEV_DI(DEV_DI),
 
-	.ROMCL(ROMCL),.ROMAD(ROMAD),.ROMDT(ROMDT),.ROMEN(ROMEN)
+	.ROMCL(ROMCL),.ROMAD(ROMAD),.ROMDT(ROMDT),.ROMEN(ROMEN),
+
+	.PAUSE(PAUSE)
 );
 
 assign LED = { RSTS, IRQS[1:0], 1'b0, NMIS[2],NMIS[0] };
@@ -115,7 +125,13 @@ DIGDUG_IODEV iodev
 	.SPATCL(SPATCL),.SPATAD(SPATAD),.SPATDT(SPATDT),
 
 	.BG_SELECT(BG_SELECT),.BG_COLBNK(BG_COLBNK),.BG_CUTOFF(BG_CUTOFF),
-	.FG_CLMODE(FG_CLMODE)
+	.FG_CLMODE(FG_CLMODE),
+
+	.hs_address(hs_address),
+	.hs_data_in(hs_data_in),
+	.hs_data_out(hs_data_out),
+	.hs_write(hs_write),
+	.hs_access(hs_access)
 );
 
 
