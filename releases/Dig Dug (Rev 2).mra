@@ -49,14 +49,14 @@
 		<part crc="00c7c419" name="136007.111"></part>
 		<part crc="e9b3e08e" name="136007.112"></part>
 		<part crc="4cb9da99" name="136007.113"></part>
-		</rom>
+	</rom>
 	<rom index="2"></rom>
 	<rom index="3" md5="none">
 		<part>
-				10 00 00 00 00 FF 00 04 00 04 00 08 00 FF 00 00
-				00 00 89 A0 00 25 01 01
-				</part>
-		</rom>
+		10 00 00 00 00 FF 00 04 00 04 00 08 00 FF 02 00
+		00 00 89 A0 00 25 01 01
+		</part>
+	</rom>
 	<rom index="4"></rom>
 
 	<nvram index="4" size="37"></nvram>
