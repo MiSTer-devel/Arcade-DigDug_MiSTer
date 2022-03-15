@@ -83,7 +83,7 @@ const int input_fire2 = 13;
 
 // Video
 // -----
-#define VGA_WIDTH 240
+#define VGA_WIDTH 224
 #define VGA_HEIGHT 288
 #define VGA_ROTATE 1  // 90 degrees anti-clockwise
 #define VGA_SCALE_X vga_scale

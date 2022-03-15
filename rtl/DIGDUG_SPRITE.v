@@ -30,7 +30,7 @@ module DIGDUG_SPRITE
 );
 
 wire [8:0] PH = POSH+9'd1;
-wire [8:0] PV = POSV+9'd2;
+wire [8:0] PV = V_FLIP ? (9'd221 - POSV) : POSV + 9'd2;
 wire [8:0] TY;
 
 
@@ -97,9 +97,10 @@ DLROMe #(8,8)  spclut((PHASE==4'd5), RCLK,{SC,PIX[7],PIX[3]},WDT, ROMCL,ROMAD[7:
 
 wire [4:0] LBOUT;
 wire [2:0] unused;
+wire [8:0] POSH_READ = V_FLIP ? 9'd287-PH : PH;
 LBUF1K lbuf (
 	  ~RCLK, {SIDE,WXP}, (PHASE==4'd6) & (PIX[7]|PIX[3]), {4'h1,WDT[3:0]},
-	 VCLKx2, {~SIDE,PH}, (radr0==radr1), 8'h0, {unused, LBOUT}
+	 VCLKx2, {~SIDE,POSH_READ}, (radr0==radr1), 8'h0, {unused, LBOUT}
 );
 
 reg [9:0] radr0=0,radr1=1;
