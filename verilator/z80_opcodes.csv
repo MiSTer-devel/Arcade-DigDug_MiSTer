@@ -1,0 +1,422 @@
+﻿0x00,nop,-,NOP,RLC,B,rlc,(iy+0)->b,MOS_QUIT,,,0,0,0
+0x01,"ld   bc,&0000","BC,&0000",LD,-,RLC,C,rlc,(iy+0)->c,MOS_CLI,,1,1,1
+0x02,"ld   (bc),a","(BC),A",LD,-,RLC,D,rlc,(iy+0)->d,MOS_BYTE,,2,2,2
+0x03,inc  bc,BC,INC,-,RLC,E,rlc,(iy+0)->e,MOS_WORD,,3,3,3
+0x04,inc  b,B,INC,-,RLC,H,rlc,(iy+0)->h,MOS_WRCH,,4,4,4
+0x05,dec  b,B,DEC,-,RLC,L,rlc,(iy+0)->l,MOS_RDCH,,5,5,5
+0x06,"ld   b,&00","B,&00",LD,-,RLC,(HL),RLC,(IY+0),MOS_FILE,,6,6,6
+0x07,rlca,-,RLCA,RLC,A,rlc,(iy+0)->a,MOS_ARGS,,,7,7,7
+0x08,"ex   af,af'","AF,AF'",EX,-,RRC,B,rrc,(iy+0)->b,MOS_BGET,,8,8,8
+0x09,"add  hl,bc","HL,BC",ADD,ADD,"IX,BC",RRC,C,rrc,(iy+0)->c,MOS_BPUT,9,9,9
+0x0a,"ld   a,(bc)","A,(BC)",LD,-,RRC,D,rrc,(iy+0)->d,MOS_GBPB,,0A,0A,0a
+0x0b,dec  bc,BC,DEC,-,RRC,E,rrc,(iy+0)->e,MOS_FIND,,0B,0B,0b
+0x0c,inc  c,C,INC,-,RRC,H,rrc,(iy+0)->h,MOS_FF0C,,0C,0C,0c
+0x0d,dec  c,C,DEC,-,RRC,L,rrc,(iy+0)->l,MOS_FF0D,,0D,0D,0d
+0x0e,"ld   c,&00","C,&00",LD,-,RRC,(HL),RRC,(IY+0),MOS_FF0E,,0E,0E,0e
+0x0f,rrca,-,RRCA,RRC,A,rrc,(iy+0)->a,MOS_FF0F,,,0F,0F,0f
+0x10,djnz &4546,&4546,DJNZ,-,RL,B,rl,(iy+0)->b,-,,10,10,10
+0x11,"ld   de,&0000","DE,&0000",LD,-,RL,C,rl,(iy+0)->c,-,,11,11,11
+0x12,"ld   (de),a","(DE),A",LD,-,RL,D,rl,(iy+0)->d,-,,12,12,12
+0x13,inc  de,DE,INC,-,RL,E,rl,(iy+0)->e,-,,13,13,13
+0x14,inc  d,D,INC,-,RL,H,rl,(iy+0)->h,-,,14,14,14
+0x15,dec  d,D,DEC,-,RL,L,rl,(iy+0)->l,-,,15,15,15
+0x16,"ld   d,&00","D,&00",LD,-,RL,(HL),RL,(IY+0),-,,16,16,16
+0x17,rla,-,RLA,RL,A,rl,(iy+0)->a,-,,,17,17,17
+0x18,jr   &4546,&4546,JR,-,RR,B,rr,(iy+0)->b,-,,18,18,18
+0x19,"add  hl,de","HL,DE",ADD,ADD,"IX,DE",RR,C,rr,(iy+0)->c,-,19,19,19
+0x1a,"ld   a,(de)","A,(DE)",LD,-,RR,D,rr,(iy+0)->d,-,,1A,1A,1a
+0x1b,dec  de,DE,DEC,-,RR,E,rr,(iy+0)->e,-,,1B,1B,1b
+0x1c,inc  e,E,INC,-,RR,H,rr,(iy+0)->h,-,,1C,1C,1c
+0x1d,dec  e,E,DEC,-,RR,L,rr,(iy+0)->l,-,,1D,1D,1d
+0x1e,"ld   e,&00","E,&00",LD,-,RR,(HL),RR,(IY+0),-,,1E,1E,1e
+0x1f,rra,-,RRA,RR,A,rr,(iy+0)->a,-,,,1F,1F,1f
+0x20,"jr   nz,&4546","NZ,&4546",JR,-,SLA,B,sla,(iy+0)->b,-,,20,20,20
+0x21,"ld   hl,&0000","HL,&0000",LD,LD,"IX,&0000",SLA,C,sla,(iy+0)->c,-,21,21,21
+0x22,"ld   (&0000),hl","(&0000),HL",LD,LD,"(&0000),IX",SLA,D,sla,(iy+0)->d,-,22,22,22
+0x23,inc  hl,HL,INC,INC,IX,SLA,E,sla,(iy+0)->e,-,23,23,23
+0x24,inc  h,H,INC,INC,IXH,SLA,H,sla,(iy+0)->h,-,24,24,24
+0x25,dec  h,H,DEC,DEC,IXH,SLA,L,sla,(iy+0)->l,-,25,25,25
+0x26,"ld   h,&00","H,&00",LD,LD,"IXH,&00",SLA,(HL),SLA,(IY+0),-,26,26,26
+0x27,daa,-,DAA,SLA,A,sla,(iy+0)->a,-,,,27,27,27
+0x28,"jr   z,&4546","Z,&4546",JR,-,SRA,B,sra,(iy+0)->b,-,,28,28,28
+0x29,"add  hl,hl","HL,HL",ADD,ADD,"IX,IX",SRA,C,sra,(iy+0)->c,-,29,29,29
+0x2a,"ld   hl,(&0000)","HL,(&0000)",LD,LD,"IX,(&0000)",SRA,D,sra,(iy+0)->d,-,2A,2A,2a
+0x2b,dec  hl,HL,DEC,DEC,IX,SRA,E,sra,(iy+0)->e,-,2B,2B,2b
+0x2c,inc  l,L,INC,INC,IXL,SRA,H,sra,(iy+0)->h,-,2C,2C,2c
+0x2d,dec  l,L,DEC,DEC,IXL,SRA,L,sra,(iy+0)->l,-,2D,2D,2d
+0x2e,"ld   l,&00","L,&00",LD,LD,"IXL,&00",SRA,(HL),SRA,(IY+0),-,2E,2E,2e
+0x2f,cpl,-,CPL,SRA,A,sra,(iy+0)->a,-,,,2F,2F,2f
+0x30,"jr   nc,&4546","NC,&4546",JR,-,SLS,B,sls,(iy+0)->b,-,,30,30,30
+0x31,"ld   sp,&0000","SP,&0000",LD,-,SLS,C,sls,(iy+0)->c,-,,31,31,31
+0x32,"ld   (&0000),a","(&0000),A",LD,-,SLS,D,sls,(iy+0)->d,-,,32,32,32
+0x33,inc  sp,SP,INC,-,SLS,E,sls,(iy+0)->e,-,,33,33,33
+0x34,inc  (hl),(HL),INC,INC,(IX+0),SLS,H,sls,(iy+0)->h,-,34,34,34
+0x35,dec  (hl),(HL),DEC,DEC,(IX+0),SLS,L,sls,(iy+0)->l,-,35,35,35
+0x36,"ld   (hl),&00","(HL),&00",LD,LD,"(IX+0),&00",SLS,(HL),SLS,(IY+0),-,36,36,36
+0x37,scf,-,SCF,SLS,A,sls,(iy+0)->a,-,,,37,37,37
+0x38,"jr   c,&4546","C,&4546",JR,-,SRL,B,srl,(iy+0)->b,-,,38,38,38
+0x39,"add  hl,sp","HL,SP",ADD,ADD,"IX,SP",SRL,C,srl,(iy+0)->c,-,39,39,39
+0x3a,"ld   a,(&0000)","A,(&0000)",LD,-,SRL,D,srl,(iy+0)->d,-,,3A,3A,3a
+0x3b,dec  sp,SP,DEC,-,SRL,E,srl,(iy+0)->e,-,,3B,3B,3b
+0x3c,inc  a,A,INC,-,SRL,H,srl,(iy+0)->h,-,,3C,3C,3c
+0x3d,dec  a,A,DEC,-,SRL,L,srl,(iy+0)->l,-,,3D,3D,3d
+0x3e,"ld   a,&00","A,&00",LD,-,SRL,(HL),SRL,(IY+0),-,,3E,3E,3e
+0x3f,ccf,-,CCF,SRL,A,srl,(iy+0)->a,-,,,3F,3F,3f
+0x40,"ld   b,b","B,B",LD,-,BIT,"0,B",bit,"0,(iy+0)->b",IN,"B,(C)",40,40,40
+0x41,"ld   b,c","B,C",LD,-,BIT,"0,C",bit,"0,(iy+0)->c",OUT,"(C),B",41,41,41
+0x42,"ld   b,d","B,D",LD,-,BIT,"0,D",bit,"0,(iy+0)->d",SBC,"HL,BC",42,42,42
+0x43,"ld   b,e","B,E",LD,-,BIT,"0,E",bit,"0,(iy+0)->e",LD,"(&0000),BC",43,43,43
+0x44,"ld   b,h","B,H",LD,LD,"B,IXH",BIT,"0,H",bit,"0,(iy+0)->h",NEG,44,44,44
+0x45,"ld   b,l","B,L",LD,LD,"B,IXL",BIT,"0,L",bit,"0,(iy+0)->l",RETN,45,45,45
+0x46,"ld   b,(hl)","B,(HL)",LD,LD,"B,(IX+0)",BIT,"0,(HL)",BIT,"0,(IY+0)",IM,46,46,46
+0x47,"ld   b,a","B,A",LD,-,BIT,"0,A",bit,"0,(iy+0)->a",LD,"I,A",47,47,47
+0x48,"ld   c,b","C,B",LD,-,BIT,"1,B",bit,"1,(iy+0)->b",IN,"C,(C)",48,48,48
+0x49,"ld   c,c","C,C",LD,-,BIT,"1,C",bit,"1,(iy+0)->c",OUT,"(C),C",49,49,49
+0x4a,"ld   c,d","C,D",LD,-,BIT,"1,D",bit,"1,(iy+0)->d",ADC,"HL,BC",4A,4A,4a
+0x4b,"ld   c,e","C,E",LD,-,BIT,"1,E",bit,"1,(iy+0)->e",LD,"BC,(&0000)",4B,4B,4b
+0x4c,"ld   c,h","C,H",LD,LD,"C,IXH",BIT,"1,H",bit,"1,(iy+0)->h",[neg],4C,4C,4c
+0x4d,"ld   c,l","C,L",LD,LD,"C,IXL",BIT,"1,L",bit,"1,(iy+0)->l",RETI,4D,4D,4d
+0x4e,"ld   c,(hl)","C,(HL)",LD,LD,"C,(IX+0)",BIT,"1,(HL)",BIT,"1,(IY+0)",[im0],4E,4E,4e
+0x4f,"ld   c,a","C,A",LD,-,BIT,"1,A",bit,"1,(iy+0)->a",LD,"R,A",4F,4F,4f
+0x50,"ld   d,b","D,B",LD,-,BIT,"2,B",bit,"2,(iy+0)->b",IN,"D,(C)",50,50,50
+0x51,"ld   d,c","D,C",LD,-,BIT,"2,C",bit,"2,(iy+0)->c",OUT,"(C),D",51,51,51
+0x52,"ld   d,d","D,D",LD,-,BIT,"2,D",bit,"2,(iy+0)->d",SBC,"HL,DE",52,52,52
+0x53,"ld   d,e","D,E",LD,-,BIT,"2,E",bit,"2,(iy+0)->e",LD,"(&0000),DE",53,53,53
+0x54,"ld   d,h","D,H",LD,LD,"D,IXH",BIT,"2,H",bit,"2,(iy+0)->h",[neg],54,54,54
+0x55,"ld   d,l","D,L",LD,LD,"D,IXL",BIT,"2,L",bit,"2,(iy+0)->l",[retn],55,55,55
+0x56,"ld   d,(hl)","D,(HL)",LD,LD,"D,(IX+0)",BIT,"2,(HL)",BIT,"2,(IY+0)",IM,56,56,56
+0x57,"ld   d,a","D,A",LD,-,BIT,"2,A",bit,"2,(iy+0)->a",LD,"A,I",57,57,57
+0x58,"ld   e,b","E,B",LD,-,BIT,"3,B",bit,"3,(iy+0)->b",IN,"E,(C)",58,58,58
+0x59,"ld   e,c","E,C",LD,-,BIT,"3,C",bit,"3,(iy+0)->c",OUT,"(C),E",59,59,59
+0x5a,"ld   e,d","E,D",LD,-,BIT,"3,D",bit,"3,(iy+0)->d",ADC,"HL,DE",5A,5A,5a
+0x5b,"ld   e,e","E,E",LD,-,BIT,"3,E",bit,"3,(iy+0)->e",LD,"DE,(&0000)",5B,5B,5b
+0x5c,"ld   e,h","E,H",LD,LD,"E,IXH",BIT,"3,H",bit,"3,(iy+0)->h",[neg],5C,5C,5c
+0x5d,"ld   e,l","E,L",LD,LD,"E,IXL",BIT,"3,L",bit,"3,(iy+0)->l",[reti],5D,5D,5d
+0x5e,"ld   e,(hl)","E,(HL)",LD,LD,"E,(IX+0)",BIT,"3,(HL)",BIT,"3,(IY+0)",IM,5E,5E,5e
+0x5f,"ld   e,a","E,A",LD,-,BIT,"3,A",bit,"3,(iy+0)->a",LD,"A,R",5F,5F,5f
+0x60,"ld   h,b","H,B",LD,LD,"IXH,B",BIT,"4,B",bit,"4,(iy+0)->b",IN,60,60,60
+0x61,"ld   h,c","H,C",LD,LD,"IXH,C",BIT,"4,C",bit,"4,(iy+0)->c",OUT,61,61,61
+0x62,"ld   h,d","H,D",LD,LD,"IXH,D",BIT,"4,D",bit,"4,(iy+0)->d",SBC,62,62,62
+0x63,"ld   h,e","H,E",LD,LD,"IXH,E",BIT,"4,E",bit,"4,(iy+0)->e",LD,63,63,63
+0x64,"ld   h,h","H,H",LD,LD,"IXH,IXH",BIT,"4,H",bit,"4,(iy+0)->h",[neg],64,64,64
+0x65,"ld   h,l","H,L",LD,LD,"IXH,IXL",BIT,"4,L",bit,"4,(iy+0)->l",[retn],65,65,65
+0x66,"ld   h,(hl)","H,(HL)",LD,LD,"H,(IX+0)",BIT,"4,(HL)",BIT,"4,(IY+0)",[im0],66,66,66
+0x67,"ld   h,a","H,A",LD,LD,"IXH,A",BIT,"4,A",bit,"4,(iy+0)->a",RRD,67,67,67
+0x68,"ld   l,b","L,B",LD,LD,"IXL,B",BIT,"5,B",bit,"5,(iy+0)->b",IN,68,68,68
+0x69,"ld   l,c","L,C",LD,LD,"IXL,C",BIT,"5,C",bit,"5,(iy+0)->c",OUT,69,69,69
+0x6a,"ld   l,d","L,D",LD,LD,"IXL,D",BIT,"5,D",bit,"5,(iy+0)->d",ADC,6A,6A,6a
+0x6b,"ld   l,e","L,E",LD,LD,"IXL,E",BIT,"5,E",bit,"5,(iy+0)->e",LD,6B,6B,6b
+0x6c,"ld   l,h","L,H",LD,LD,"IXL,IXH",BIT,"5,H",bit,"5,(iy+0)->h",[neg],6C,6C,6c
+0x6d,"ld   l,l","L,L",LD,LD,"IXL,IXL",BIT,"5,L",bit,"5,(iy+0)->l",[reti],6D,6D,6d
+0x6e,"ld   l,(hl)","L,(HL)",LD,LD,"L,(IX+0)",BIT,"5,(HL)",BIT,"5,(IY+0)",[im0],6E,6E,6e
+0x6f,"ld   l,a","L,A",LD,LD,"IXL,A",BIT,"5,A",bit,"5,(iy+0)->a",RLD,6F,6F,6f
+0x70,"ld   (hl),b","(HL),B",LD,LD,"(IX+0),B",BIT,"6,B",bit,"6,(iy+0)->b",IN,70,70,70
+0x71,"ld   (hl),c","(HL),C",LD,LD,"(IX+0),C",BIT,"6,C",bit,"6,(iy+0)->c",OUT,71,71,71
+0x72,"ld   (hl),d","(HL),D",LD,LD,"(IX+0),D",BIT,"6,D",bit,"6,(iy+0)->d",SBC,72,72,72
+0x73,"ld   (hl),e","(HL),E",LD,LD,"(IX+0),E",BIT,"6,E",bit,"6,(iy+0)->e",LD,73,73,73
+0x74,"ld   (hl),h","(HL),H",LD,LD,"(IX+0),H",BIT,"6,H",bit,"6,(iy+0)->h",[neg],74,74,74
+0x75,"ld   (hl),l","(HL),L",LD,LD,"(IX+0),L",BIT,"6,L",bit,"6,(iy+0)->l",[retn],75,75,75
+0x76,halt,-,HALT,BIT,"6,(HL)",BIT,"6,(IY+0)",[im1],,,76,76,76
+0x77,"ld   (hl),a","(HL),A",LD,LD,"(IX+0),A",BIT,"6,A",bit,"6,(iy+0)->a",[ld,77,77,77
+0x78,"ld   a,b","A,B",LD,-,BIT,"7,B",bit,"7,(iy+0)->b",IN,"A,(C)",78,78,78
+0x79,"ld   a,c","A,C",LD,-,BIT,"7,C",bit,"7,(iy+0)->c",OUT,"(C),A",79,79,79
+0x7a,"ld   a,d","A,D",LD,-,BIT,"7,D",bit,"7,(iy+0)->d",ADC,"HL,SP",7A,7A,7a
+0x7b,"ld   a,e","A,E",LD,-,BIT,"7,E",bit,"7,(iy+0)->e",LD,"SP,(&0000)",7B,7B,7b
+0x7c,"ld   a,h","A,H",LD,LD,"A,IXH",BIT,"7,H",bit,"7,(iy+0)->h",[neg],7C,7C,7c
+0x7d,"ld   a,l","A,L",LD,LD,"A,IXL",BIT,"7,L",bit,"7,(iy+0)->l",[reti],7D,7D,7d
+0x7e,"ld   a,(hl)","A,(HL)",LD,LD,"A,(IX+0)",BIT,"7,(HL)",BIT,"7,(IY+0)",[im2],7E,7E,7e
+0x7f,"ld   a,a","A,A",LD,-,BIT,"7,A",bit,"7,(iy+0)->a",[ld,"r,r?]",7F,7F,7f
+0x80,"add  a,b","A,B",ADD,-,RES,"0,B",res,"0,(iy+0)->b",-,,80,80,80
+0x81,"add  a,c","A,C",ADD,-,RES,"0,C",res,"0,(iy+0)->c",-,,81,81,81
+0x82,"add  a,d","A,D",ADD,-,RES,"0,D",res,"0,(iy+0)->d",-,,82,82,82
+0x83,"add  a,e","A,E",ADD,-,RES,"0,E",res,"0,(iy+0)->e",-,,83,83,83
+0x84,"add  a,h","A,H",ADD,"A,IXH",RES,"0,H",res,"0,(iy+0)->h",-,,84,84,84
+0x85,"add  a,l","A,L",ADD,"A,IXL",RES,"0,L",res,"0,(iy+0)->l",-,,85,85,85
+0x86,"add  a,(hl)","A,(HL)",ADD,"A,(IX+0)",RES,"0,(HL)",RES,"0,(IY+0)",-,,86,86,86
+0x87,"add  a,a","A,A",ADD,-,RES,"0,A",res,"0,(iy+0)->a",-,,87,87,87
+0x88,"adc  a,b","A,B",ADC,-,RES,"1,B",res,"1,(iy+0)->b",-,,88,88,88
+0x89,"adc  a,c","A,C",ADC,-,RES,"1,C",res,"1,(iy+0)->c",-,,89,89,89
+0x8a,"adc  a,d","A,D",ADC,-,RES,"1,D",res,"1,(iy+0)->d",-,,8A,8A,8a
+0x8b,"adc  a,e","A,E",ADC,-,RES,"1,E",res,"1,(iy+0)->e",-,,8B,8B,8b
+0x8c,"adc  a,h","A,H",ADC,"A,IXH",RES,"1,H",res,"1,(iy+0)->h",-,,8C,8C,8c
+0x8d,"adc  a,l","A,L",ADC,"A,IXL",RES,"1,L",res,"1,(iy+0)->l",-,,8D,8D,8d
+0x8e,"adc  a,(hl)","A,(HL)",ADC,"A,(IX+0)",RES,"1,(HL)",RES,"1,(IY+0)",-,,8E,8E,8e
+0x8f,"adc  a,a","A,A",ADC,-,RES,"1,A",res,"1,(iy+0)->a",-,,8F,8F,8f
+0x90,sub  b,"A,B",SUB,-,RES,"2,B",res,"2,(iy+0)->b",-,,90,90,90
+0x91,sub  c,"A,C",SUB,-,RES,"2,C",res,"2,(iy+0)->c",-,,91,91,91
+0x92,sub  d,"A,D",SUB,-,RES,"2,D",res,"2,(iy+0)->d",-,,92,92,92
+0x93,sub  e,"A,E",SUB,-,RES,"2,E",res,"2,(iy+0)->e",-,,93,93,93
+0x94,sub  h,"A,H",SUB,"A,IXH",RES,"2,H",res,"2,(iy+0)->h",-,,94,94,94
+0x95,sub  l,"A,L",SUB,"A,IXL",RES,"2,L",res,"2,(iy+0)->l",-,,95,95,95
+0x96,"sub  a,(hl)","A,(HL)",SUB,"A,(IX+0)",RES,"2,(HL)",RES,"2,(IY+0)",-,,96,96,96
+0x97,sub  a,"A,A",SUB,-,RES,"2,A",res,"2,(iy+0)->a",-,,97,97,97
+0x98,"sbc  a,b","A,B",SBC,-,RES,"3,B",res,"3,(iy+0)->b",-,,98,98,98
+0x99,"sbc  a,c","A,C",SBC,-,RES,"3,C",res,"3,(iy+0)->c",-,,99,99,99
+0x9a,"sbc  a,d","A,D",SBC,-,RES,"3,D",res,"3,(iy+0)->d",-,,9A,9A,9a
+0x9b,"sbc  a,e","A,E",SBC,-,RES,"3,E",res,"3,(iy+0)->e",-,,9B,9B,9b
+0x9c,"sbc  a,h","A,H",SBC,"A,IXH",RES,"3,H",res,"3,(iy+0)->h",-,,9C,9C,9c
+0x9d,"sbc  a,l","A,L",SBC,"A,IXL",RES,"3,L",res,"3,(iy+0)->l",-,,9D,9D,9d
+0x9e,"sbc  a,(hl)","A,(HL)",SBC,"A,(IX+0)",RES,"3,(HL)",RES,"3,(IY+0)",-,,9E,9E,9e
+0x9f,"sbc  a,a","A,A",SBC,-,RES,"3,A",res,"3,(iy+0)->a",-,,9F,9F,9f
+0xa0,and  b,B,AND,-,RES,"4,B",res,"4,(iy+0)->b",LDI,,A0,A0,a0
+0xa1,and  c,C,AND,-,RES,"4,C",res,"4,(iy+0)->c",CPI,,A1,A1,a1
+0xa2,and  d,D,AND,-,RES,"4,D",res,"4,(iy+0)->d",INI,,A2,A2,a2
+0xa3,and  e,E,AND,-,RES,"4,E",res,"4,(iy+0)->e",OTI,,A3,A3,a3
+0xa4,and  h,H,AND,IXH,RES,"4,H",res,"4,(iy+0)->h",-,,A4,A4,a4
+0xa5,and  l,L,AND,IXL,RES,"4,L",res,"4,(iy+0)->l",-,,A5,A5,a5
+0xa6,and  (hl),(HL),AND,(IX+0),RES,"4,(HL)",RES,"4,(IY+0)",-,,A6,A6,a6
+0xa7,and  a,A,AND,-,RES,"4,A",res,"4,(iy+0)->a",-,,A7,A7,a7
+0xa8,xor  b,B,XOR,-,RES,"5,B",res,"5,(iy+0)->b",LDD,,A8,A8,a8
+0xa9,xor  c,C,XOR,-,RES,"5,C",res,"5,(iy+0)->c",CPD,,A9,A9,a9
+0xaa,xor  d,D,XOR,-,RES,"5,D",res,"5,(iy+0)->d",IND,,AA,AA,aa
+0xab,xor  e,E,XOR,-,RES,"5,E",res,"5,(iy+0)->e",OTD,,AB,AB,ab
+0xac,xor  h,H,XOR,IXH,RES,"5,H",res,"5,(iy+0)->h",-,,AC,AC,ac
+0xad,xor  l,L,XOR,IXL,RES,"5,L",res,"5,(iy+0)->l",-,,AD,AD,ad
+0xae,xor  (hl),(HL),XOR,(IX+0),RES,"5,(HL)",RES,"5,(IY+0)",-,,AE,AE,ae
+0xaf,xor  a,A,XOR,-,RES,"5,A",res,"5,(iy+0)->a",-,,AF,AF,af
+0xb0,or   b,B,OR,-,RES,"6,B",res,"6,(iy+0)->b",LDIR,,B0,B0,b0
+0xb1,or   c,C,OR,-,RES,"6,C",res,"6,(iy+0)->c",CPIR,,B1,B1,b1
+0xb2,or   d,D,OR,-,RES,"6,D",res,"6,(iy+0)->d",INIR,,B2,B2,b2
+0xb3,or   e,E,OR,-,RES,"6,E",res,"6,(iy+0)->e",OTIR,,B3,B3,b3
+0xb4,or   h,H,OR,IXH,RES,"6,H",res,"6,(iy+0)->h",-,,B4,B4,b4
+0xb5,or   l,L,OR,IXL,RES,"6,L",res,"6,(iy+0)->l",-,,B5,B5,b5
+0xb6,or   (hl),(HL),OR,(IX+0),RES,"6,(HL)",RES,"6,(IY+0)",-,,B6,B6,b6
+0xb7,or   a,A,OR,-,RES,"6,A",res,"6,(iy+0)->a",-,,B7,B7,b7
+0xb8,cp   b,B,CP,-,RES,"7,B",res,"7,(iy+0)->b",LDDR,,B8,B8,b8
+0xb9,cp   c,C,CP,-,RES,"7,C",res,"7,(iy+0)->c",CPDR,,B9,B9,b9
+0xba,cp   d,D,CP,-,RES,"7,D",res,"7,(iy+0)->d",INDR,,BA,BA,ba
+0xbb,cp   e,E,CP,-,RES,"7,E",res,"7,(iy+0)->e",OTDR,,BB,BB,bb
+0xbc,cp   h,H,CP,IXH,RES,"7,H",res,"7,(iy+0)->h",-,,BC,BC,bc
+0xbd,cp   l,L,CP,IXL,RES,"7,L",res,"7,(iy+0)->l",-,,BD,BD,bd
+0xbe,cp   (hl),(HL),CP,(IX+0),RES,"7,(HL)",RES,"7,(IY+0)",-,,BE,BE,be
+0xbf,cp   a,A,CP,-,RES,"7,A",res,"7,(iy+0)->a",-,,BF,BF,bf
+0xc0,ret  nz,NZ,RET,-,SET,"0,B",set,"0,(iy+0)->b",-,,C0,C0,c0
+0xc1,pop  bc,BC,POP,-,SET,"0,C",set,"0,(iy+0)->c",-,,C1,C1,c1
+0xc2,"jp   nz,&0000","NZ,&0000",JP,-,SET,"0,D",set,"0,(iy+0)->d",-,,C2,C2,c2
+0xc3,jp   &0000,&0000,JP,-,SET,"0,E",set,"0,(iy+0)->e",-,,C3,C3,c3
+0xc4,"call nz,&0000","NZ,&0000",CALL,-,SET,"0,H",set,"0,(iy+0)->h",-,,C4,C4,c4
+0xc5,push bc,BC,PUSH,-,SET,"0,L",set,"0,(iy+0)->l",-,,C5,C5,c5
+0xc6,"add  a,&00","A,&00",ADD,-,SET,"0,(HL)",SET,"0,(IY+0)",-,,C6,C6,c6
+0xc7,rst  &00,&00,RST,-,SET,"0,A",set,"0,(iy+0)->a",-,,C7,C7,c7
+0xc8,ret  z,Z,RET,-,SET,"1,B",set,"1,(iy+0)->b",-,,C8,C8,c8
+0xc9,ret,-,RET,-,SET,"1,C",set,"1,(iy+0)->c",-,,C9,C9,c9
+0xca,"jp   z,&0000","Z,&0000",JP,-,SET,"1,D",set,"1,(iy+0)->d",-,,CA,CA,ca
+0xcb,**** cb,CB,****,-,SET,"1,E",set,"1,(iy+0)->e",-,,CB,CB,cb
+0xcc,"call z,&0000","Z,&0000",CALL,-,SET,"1,H",set,"1,(iy+0)->h",-,,CC,CC,cc
+0xcd,call &0000,&0000,CALL,-,SET,"1,L",set,"1,(iy+0)->l",-,,CD,CD,cd
+0xce,"adc  a,&00","A,&00",ADC,-,SET,"1,(HL)",SET,"1,(IY+0)",-,,CE,CE,ce
+0xcf,rst  &08,&08,RST,-,SET,"1,A",set,"1,(iy+0)->a",-,,CF,CF,cf
+0xd0,ret  nc,NC,RET,-,SET,"2,B",set,"2,(iy+0)->b",-,,D0,D0,d0
+0xd1,pop  de,DE,POP,-,SET,"2,C",set,"2,(iy+0)->c",-,,D1,D1,d1
+0xd2,"jp   nc,&0000","NC,&0000",JP,-,SET,"2,D",set,"2,(iy+0)->d",-,,D2,D2,d2
+0xd3,"out  (&00),a","(&00),A",OUT,-,SET,"2,E",set,"2,(iy+0)->e",-,,D3,D3,d3
+0xd4,"call nc,&0000","NC,&0000",CALL,-,SET,"2,H",set,"2,(iy+0)->h",-,,D4,D4,d4
+0xd5,push de,DE,PUSH,-,SET,"2,L",set,"2,(iy+0)->l",-,,D5,D5,d5
+0xd6,"sub  a,&00","A,&00",SUB,-,SET,"2,(HL)",SET,"2,(IY+0)",-,,D6,D6,d6
+0xd7,rst  &10,&10,RST,-,SET,"2,A",set,"2,(iy+0)->a",-,,D7,D7,d7
+0xd8,ret  c,C,RET,-,SET,"3,B",set,"3,(iy+0)->b",-,,D8,D8,d8
+0xd9,exx,-,EXX,-,SET,"3,C",set,"3,(iy+0)->c",-,,D9,D9,d9
+0xda,"jp   c,&0000","C,&0000",JP,-,SET,"3,D",set,"3,(iy+0)->d",-,,DA,DA,da
+0xdb,"in   a,(&00)","A,(&00)",IN,-,SET,"3,E",set,"3,(iy+0)->e",-,,DB,DB,db
+0xdc,"call c,&0000","C,&0000",CALL,-,SET,"3,H",set,"3,(iy+0)->h",-,,DC,DC,dc
+0xdd,**** dd,DD,****,-,SET,"3,L",set,"3,(iy+0)->l",-,,DD,DD,dd
+0xde,"sbc  a,&00","A,&00",SBC,-,SET,"3,(HL)",SET,"3,(IY+0)",-,,DE,DE,de
+0xdf,rst  &18,&18,RST,-,SET,"3,A",set,"3,(iy+0)->a",-,,DF,DF,df
+0xe0,ret  po,PO,RET,-,SET,"4,B",set,"4,(iy+0)->b",-,,E0,E0,e0
+0xe1,pop  hl,HL,POP,IX,SET,"4,C",set,"4,(iy+0)->c",-,,E1,E1,e1
+0xe2,"jp   po,&0000","PO,&0000",JP,-,SET,"4,D",set,"4,(iy+0)->d",-,,E2,E2,e2
+0xe3,"ex   (sp),hl","(SP),HL",EX,"(SP),IX",SET,"4,E",set,"4,(iy+0)->e",-,,E3,E3,e3
+0xe4,"call po,&0000","PO,&0000",CALL,-,SET,"4,H",set,"4,(iy+0)->h",-,,E4,E4,e4
+0xe5,push hl,HL,PUSH,IX,SET,"4,L",set,"4,(iy+0)->l",-,,E5,E5,e5
+0xe6,and  &00,&00,AND,-,SET,"4,(HL)",SET,"4,(IY+0)",-,,E6,E6,e6
+0xe7,rst  &20,&20,RST,-,SET,"4,A",set,"4,(iy+0)->a",-,,E7,E7,e7
+0xe8,ret  pe,PE,RET,-,SET,"5,B",set,"5,(iy+0)->b",-,,E8,E8,e8
+0xe9,jp   (hl),(HL),JP,(IX),SET,"5,C",set,"5,(iy+0)->c",-,,E9,E9,e9
+0xea,"jp   pe,&0000","PE,&0000",JP,-,SET,"5,D",set,"5,(iy+0)->d",-,,EA,EA,ea
+0xeb,"ex   de,hl","DE,HL",EX,-,SET,"5,E",set,"5,(iy+0)->e",-,,EB,EB,eb
+0xec,"call pe,&0000","PE,&0000",CALL,-,SET,"5,H",set,"5,(iy+0)->h",-,,EC,EC,ec
+0xed,**** ed,ED,****,-,SET,"5,L",set,"5,(iy+0)->l",-,,ED,ED,ed
+0xee,xor  &00,&00,XOR,-,SET,"5,(HL)",SET,"5,(IY+0)",-,,EE,EE,ee
+0xef,rst  &28,&28,RST,-,SET,"5,A",set,"5,(iy+0)->a",-,,EF,EF,ef
+0xf0,ret  p,P,RET,-,SET,"6,B",set,"6,(iy+0)->b",-,,F0,F0,f0
+0xf1,pop  af,AF,POP,-,SET,"6,C",set,"6,(iy+0)->c",-,,F1,F1,f1
+0xf2,"jp   p,&0000","P,&0000",JP,-,SET,"6,D",set,"6,(iy+0)->d",-,,F2,F2,f2
+0xf3,di,-,DI,-,SET,"6,E",set,"6,(iy+0)->e",-,,F3,F3,f3
+0xf4,"call p,&0000","P,&0000",CALL,-,SET,"6,H",set,"6,(iy+0)->h",-,,F4,F4,f4
+0xf5,push af,AF,PUSH,-,SET,"6,L",set,"6,(iy+0)->l",-,,F5,F5,f5
+0xf6,or   &00,&00,OR,-,SET,"6,(HL)",SET,"6,(IY+0)",-,,F6,F6,f6
+0xf7,rst  &30,&30,RST,-,SET,"6,A",set,"6,(iy+0)->a",-,,F7,F7,f7
+0xf8,ret  m,M,RET,-,SET,"7,B",set,"7,(iy+0)->b",[z80],,F8,F8,f8
+0xf9,"ld   sp,hl","SP,HL",LD,-,SET,"7,C",set,"7,(iy+0)->c",[z80],,F9,F9,f9
+0xfa,"jp   m,&0000","M,&0000",JP,-,SET,"7,D",set,"7,(iy+0)->d",[z80],,FA,FA,fa
+0xfb,ei,-,EI,-,SET,"7,E",set,"7,(iy+0)->e",ED_LOAD,,FB,FB,fb
+0xfc,"call m,&0000","M,&0000",CALL,-,SET,"7,H",set,"7,(iy+0)->h",[z80],,FC,FC,fc
+0xfd,**** fd,FD,****,-,SET,"7,L",set,"7,(iy+0)->l",[z80],,FD,FD,fd
+0xfe,cp   &00,&00,CP,-,SET,"7,(HL)",SET,"7,(IY+0)",[z80],,FE,FE,fe
+0xff,rst  &38,&38,RST,-,SET,"7,A",set,"7,(iy+0)->a",ED_DOS,,FF,FF,ff
+0xcb86,"res  0,(hl)",,,,,,,,,,,,
+0xedb0,ldir,,,,,,,,,,,,
+0xed52,"sbc  hl,de",,,,,,,,,,,,
+0xcb3f,srl  a,,,,,,,,,,,,
+0xcb47,"bit  0,a",,,,,,,,,,,,
+0xcb46,"bit  0,(hl)","BIT 0,(HL)",CB 46,2,12,?,<>b,?,-,,,,
+0xcbdd,"bit  0,(ix+d)","BIT 0,(IX+d)",CB DD 46 d,4,20,?,<>b,?,-,,,,
+0xcbfd,"bit  0,(iy+d)","BIT 0,(IY+d)",CB FD 46 d,4,20,?,<>b,?,-,,,,
+0xcb47,"bit  0,a","BIT 0,A",CB 47,2,8,?,<>b,?,-,,,,
+0xcb40,"bit  0,b","BIT 0,B",CB 40,2,8,?,<>b,?,-,,,,
+0xcb41,"bit  0,c","BIT 0,C",CB 41,2,8,?,<>b,?,-,,,,
+0xcb42,"bit  0,d","BIT 0,D",CB 42,2,8,?,<>b,?,-,,,,
+0xcb43,"bit  0,e","BIT 0,E",CB 43,2,8,?,<>b,?,-,,,,
+0xcb44,"bit  0,h","BIT 0,H",CB 44,2,8,?,<>b,?,-,,,,
+0xcb45,"bit  0,l","BIT 0,L",CB 45,2,8,?,<>b,?,-,,,,
+0xcb4e,"bit  1,(hl)","BIT 1,(HL)",CB 4E,2,12,?,<>b,?,-,,,,
+0xcbdd,"bit  1,(ix+d)","BIT 1,(IX+d)",CB DD 4E d,4,20,?,<>b,?,-,,,,
+0xcbfd,"bit  1,(iy+d)","BIT 1,(IY+d)",CB FD 4E d,4,20,?,<>b,?,-,,,,
+0xcb1f,"bit  1,a","BIT 1,A",CB 1F,2,8,?,<>b,?,-,,,,
+0xcb48,"bit  1,b","BIT 1,B",CB 48,2,8,?,<>b,?,-,,,,
+0xcb49,"bit  1,c","BIT 1,C",CB 49,2,8,?,<>b,?,-,,,,
+0xcb4a,"bit  1,d","BIT 1,D",CB 4A,2,8,?,<>b,?,-,,,,
+0xcb4b,"bit  1,e","BIT 1,E",CB 4B,2,8,?,<>b,?,-,,,,
+0xcb4c,"bit  1,h","BIT 1,H",CB 4C,2,8,?,<>b,?,-,,,,
+0xcb4d,"bit  1,l","BIT 1,L",CB 4D,2,8,?,<>b,?,-,,,,
+0xcb56,"bit  2,(hl)","BIT 2,(HL)",CB 56,2,12,?,<>b,?,-,,,,
+0xcbfd,"bit  2,(iy+d)","BIT 2,(IY+d)",CB FD 56 d,4,20,?,<>b,?,-,,,,
+0xcbdd,"bit  2,(ly+d)","BIT 2,(LY+d)",CB DD 56 d,4,20,?,<>b,?,-,,,,
+0xcb57,"bit  2,a","BIT 2,A",CB 57,2,8,?,<>b,?,-,,,,
+0xcb50,"bit  2,b","BIT 2,B",CB 50,2,8,?,<>b,?,-,,,,
+0xcb51,"bit  2,c","BIT 2,C",CB 51,2,8,?,<>b,?,-,,,,
+0xcb52,"bit  2,d","BIT 2,D",CB 52,2,8,?,<>b,?,-,,,,
+0xcb53,"bit  2,e","BIT 2,E",CB 53,2,8,?,<>b,?,-,,,,
+0xcb54,"bit  2,h","BIT 2,H",CB 54,2,8,?,<>b,?,-,,,,
+0xcb55,"bit  2,l","BIT 2,L",CB 55,2,8,?,<>b,?,-,,,,
+0xcb5e,"bit  3,(hl)","BIT 3,(HL)",CB 5E,2,12,?,<>b,?,-,,,,
+0xcbdd,"bit  3,(ix+d)","BIT 3,(IX+d)",CB DD 5E d,4,20,?,<>b,?,-,,,,
+0xcbfd,"bit  3,(iy+d)","BIT 3,(IY+d)",CB FD 5E d,4,20,?,<>b,?,-,,,,
+0xcb5f,"bit  3,a","BIT 3,A",CB 5F,2,8,?,<>b,?,-,,,,
+0xcb58,"bit  3,b","BIT 3,B",CB 58,2,8,?,<>b,?,-,,,,
+0xcb59,"bit  3,c","BIT 3,C",CB 59,2,8,?,<>b,?,-,,,,
+0xcb5a,"bit  3,d","BIT 3,D",CB 5A,2,8,?,<>b,?,-,,,,
+0xcb5b,"bit  3,e","BIT 3,E",CB 5B,2,8,?,<>b,?,-,,,,
+0xcb5c,"bit  3,h","BIT 3,H",CB 5C,2,8,?,<>b,?,-,,,,
+0xcb5d,"bit  3,l","BIT 3,L",CB 5D,2,8,?,<>b,?,-,,,,
+0xcb66,"bit  4,(hl)","BIT 4,(HL)",CB 66,2,12,?,<>b,?,-,,,,
+0xcbfd,"bit  4,(iy+d)","BIT 4,(IY+d)",CB FD 66 d,4,20,?,<>b,?,-,,,,
+0xcbdd,"bit  4,(ly+d)","BIT 4,(LY+d)",CB DD 66 d,4,20,?,<>b,?,-,,,,
+0xcb67,"bit  4,a","BIT 4,A",CB 67,2,8,?,<>b,?,-,,,,
+0xcb60,"bit  4,b","BIT 4,B",CB 60,2,8,?,<>b,?,-,,,,
+0xcb61,"bit  4,c","BIT 4,C",CB 61,2,8,?,<>b,?,-,,,,
+0xcb62,"bit  4,d","BIT 4,D",CB 62,2,8,?,<>b,?,-,,,,
+0xcb63,"bit  4,e","BIT 4,E",CB 63,2,8,?,<>b,?,-,,,,
+0xcb64,"bit  4,h","BIT 4,H",CB 64,2,8,?,<>b,?,-,,,,
+0xcb65,"bit  4,l","BIT 4,L",CB 65,2,8,?,<>b,?,-,,,,
+0xcb6e,"bit  5,(hl)","BIT 5,(HL)",CB 6E,2,12,?,<>b,?,-,,,,
+0xcbdd,"bit  5,(ix+d)","BIT 5,(IX+d)",CB DD 6E d,4,20,?,<>b,?,-,,,,
+0xcbfd,"bit  5,(iy+d)","BIT 5,(IY+d)",CB FD 6E d,4,20,?,<>b,?,-,,,,
+0xcb6f,"bit  5,a","BIT 5,A",CB 6F,2,8,?,<>b,?,-,,,,
+0xcb68,"bit  5,b","BIT 5,B",CB 68,2,8,?,<>b,?,-,,,,
+0xcb69,"bit  5,c","BIT 5,C",CB 69,2,8,?,<>b,?,-,,,,
+0xcb6a,"bit  5,d","BIT 5,D",CB 6A,2,8,?,<>b,?,-,,,,
+0xcb6b,"bit  5,e","BIT 5,E",CB 6B,2,8,?,<>b,?,-,,,,
+0xcb6c,"bit  5,h","BIT 5,H",CB 6C,2,8,?,<>b,?,-,,,,
+0xcb6d,"bit  5,l","BIT 5,L",CB 6D,2,8,?,<>b,?,-,,,,
+0xcb76,"bit  6,(hl)","BIT 6,(HL)",CB 76,2,12,?,<>b,?,-,,,,
+0xcbdd,"bit  6,(ix+d)","BIT 6,(IX+d)",CB DD 76 d,4,20,?,<>b,?,-,,,,
+0xcbfd,"bit  6,(iy+d)","BIT 6,(IY+d)",CB FD 76 d,4,20,?,<>b,?,-,,,,
+0xcb77,"bit  6,a","BIT 6,A",CB 77,2,8,?,<>b,?,-,,,,
+0xcb70,"bit  6,b","BIT 6,B",CB 70,2,8,?,<>b,?,-,,,,
+0xcb71,"bit  6,c","BIT 6,C",CB 71,2,8,?,<>b,?,-,,,,
+0xcb72,"bit  6,d","BIT 6,D",CB 72,2,8,?,<>b,?,-,,,,
+0xcb73,"bit  6,e","BIT 6,E",CB 73,2,8,?,<>b,?,-,,,,
+0xcb74,"bit  6,h","BIT 6,H",CB 74,2,8,?,<>b,?,-,,,,
+0xcb75,"bit  6,l","BIT 6,L",CB 75,2,8,?,<>b,?,-,,,,
+0xcb7e,"bit  7,(hl)","BIT 7,(HL)",CB 7E,2,12,?,<>b,?,-,,,,
+0xcbdd,"bit  7,(ix+d)","BIT 7,(IX+d)",CB DD 7E d,4,20,?,<>b,?,-,,,,
+0xcbfd,"bit  7,(iy+d)","BIT 7,(IY+d)",CB FD 7E d,4,20,?,<>b,?,-,,,,
+0xcb7f,"bit  7,a","BIT 7,A",CB 7F,2,8,?,<>b,?,-,,,,
+0xcb78,"bit  7,b","BIT 7,B",CB 78,2,8,?,<>b,?,-,,,,
+0xcb79,"bit  7,c","BIT 7,C",CB 79,2,8,?,<>b,?,-,,,,
+0xcb7a,"bit  7,d","BIT 7,D",CB 7A,2,8,?,<>b,?,-,,,,
+0xcb7b,"bit  7,e","BIT 7,E",CB 7B,2,8,?,<>b,?,-,,,,
+0xcb7c,"bit  7,h","BIT 7,H",CB 7C,2,8,?,<>b,?,-,,,,
+0xcb7d,"bit  7,l","BIT 7,L",CB 7D,2,8,?,<>b,?,-,,,,
+0xdd09,"add   ix,bc",DD 09,"ADD   IX,BC",,,,,,"ADD   IX,BC","ADD IX,BC","ADD IX,BC","ADD IX,BC",
+0xdd19,"add   ix,de",DD 19,"ADD   IX,DE",,,,,,"ADD   IX,DE","ADD IX,DE","ADD IX,DE","ADD IX,DE",
+0xdd21,"ld   ix,&0000",DD 21 LL HH,LD   IX&0000,,,,,,LD   IX&0000,LD IX&0000,LD IX&0000,"LD IX,HHLL",
+0xdd22,"ld   (hhll),ix",DD 22 LL HH,"LD   (HHLL),IX",,,,,,"LD   (HHLL),IX","LD (HHLL),IX","LD (HHLL),IX","LD (HHLL),IX",
+0xdd23,inc   ix,DD 23,INC   IX,,,,,,INC   IX,INC IX,INC IX,INC IX,
+0xdd24,inc   ixh,DD 24,INC   IXH,,,,,,INC   IXH,INC IXH,INC IXH,INC IXH,
+0xdd25,dec   ixh,DD 25,DEC   IXH,,,,,,DEC   IXH,DEC IXH,DEC IXH,DEC IXH,
+0xdd26,"ld   ixh,&00",DD 26 NN,"LD   IXH,&00",,,,,,"LD   IXH,&00","LD IXH,&00","LD IXH,NN","LD IXH,NN",
+0xdd29,"add   ix,ix",DD 29,"ADD   IX,IX",,,,,,"ADD   IX,IX","ADD IX,IX","ADD IX,IX","ADD IX,IX",
+0xdd2a,"ld   ix,(hhll)",DD 2A LL HH,"LD   IX,(HHLL)",,,,,,"LD   IX,(HHLL)","LD IX,(HHLL)","LD IX,(HHLL)","LD IX,(HHLL)",
+0xdd2b,dec   ix,DD 2B,DEC   IX,,,,,,DEC   IX,DEC IX,DEC IX,DEC IX,
+0xdd2c,inc   ixl,DD 2C,INC   IXL,,,,,,INC   IXL,INC IXL,INC IXL,INC IXL,
+0xdd2d,dec   ixl,DD 2D,DEC   IXL,,,,,,DEC   IXL,DEC IXL,DEC IXL,DEC IXL,
+0xdd2e,"ld   ixl,&00",DD 2E NN,"LD   IXL,&00",,,,,,"LD   IXL,&00","LD IXL,&00","LD IXL,NN","LD IXL,NN",
+0xdd34,inc   (ix+&00),DD 34 NN,INC   (IX+&00),,,,,,INC   (IX+&00),INC (IX+&00),INC (IX+NN),INC (IX+NN),
+0xdd35,dec   (ix+&00),DD 35 NN,DEC   (IX+&00),,,,,,DEC   (IX+&00),DEC (IX+&00),DEC (IX+NN),DEC (IX+NN),
+0xdd39,"add   ix,sp",DD 39,"ADD   IX,SP",,,,,,"ADD   IX,SP","ADD IX,SP","ADD IX,SP","ADD IX,SP",
+0xdd44,"ld   b,ixh",DD 44,"LD   B,IXH",,,,,,"LD   B,IXH","LD B,IXH","LD B,IXH","LD B,IXH",
+0xdd45,"ld   b,ixl",DD 45,"LD   B,IXL",,,,,,"LD   B,IXL","LD B,IXL","LD B,IXL","LD B,IXL",
+0xdd46,"ld   b,(ix+&00)",DD 46 NN,"LD   B,(IX+&00)",,,,,,"LD   B,(IX+&00)","LD B,(IX+&00)","LD B,(IX+NN)","LD B,(IX+NN)",
+0xdd4c,"ld   c,ixh",DD 4C,"LD   C,IXH",,,,,,"LD   C,IXH","LD C,IXH","LD C,IXH","LD C,IXH",
+0xdd4d,"ld   c,ixl",DD 4D,"LD   C,IXL",,,,,,"LD   C,IXL","LD C,IXL","LD C,IXL","LD C,IXL",
+0xdd4e,"ld   c,(ix+&00)",DD 4E NN,"LD   C,(IX+&00)",,,,,,"LD   C,(IX+&00)","LD C,(IX+&00)","LD C,(IX+NN)","LD C,(IX+NN)",
+0xdd54,"ld   d,ixh",DD 54,"LD   D,IXH",,,,,,"LD   D,IXH","LD D,IXH","LD D,IXH","LD D,IXH",
+0xdd55,"ld   d,ixl",DD 55,"LD   D,IXL",,,,,,"LD   D,IXL","LD D,IXL","LD D,IXL","LD D,IXL",
+0xdd5e,"ld   e,(ix+&00)",DD 5E NN,"LD   E,(IX+&00)",,,,,,"LD   E,(IX+&00)","LD E,(IX+&00)","LD E,(IX+NN)","LD E,(IX+NN)",
+0xdd60,"ld   ixh,b",DD 60,"LD   IXH,B",,,,,,"LD   IXH,B","LD IXH,B","LD IXH,B","LD IXH,B",
+0xdd61,"ld   ixh,c",DD 61,"LD   IXH,C",,,,,,"LD   IXH,C","LD IXH,C","LD IXH,C","LD IXH,C",
+0xdd62,"ld   ixh,d",DD 62,"LD   IXH,D",,,,,,"LD   IXH,D","LD IXH,D","LD IXH,D","LD IXH,D",
+0xdd63,"ld   ixh,e",DD 63,"LD   IXH,E",,,,,,"LD   IXH,E","LD IXH,E","LD IXH,E","LD IXH,E",
+0xdd64,"ld   ixh,ixh",DD 64,"LD   IXH,IXH",,,,,,"LD   IXH,IXH","LD IXH,IXH","LD IXH,IXH","LD IXH,IXH",
+0xdd65,"ld   ixh,ixl",DD 65,"LD   IXH,IXL",,,,,,"LD   IXH,IXL","LD IXH,IXL","LD IXH,IXL","LD IXH,IXL",
+0xdd66,"ld   h,(ix+&00)",DD 66 NN,"LD   H,(IX+&00)",,,,,,"LD   H,(IX+&00)","LD H,(IX+&00)","LD H,(IX+NN)","LD H,(IX+NN)",
+0xdd67,"ld   ixh,a",DD 67,"LD   IXH,A",,,,,,"LD   IXH,A","LD IXH,A","LD IXH,A","LD IXH,A",
+0xdd68,"ld   ixl,b",DD 68,"LD   IXL,B",,,,,,"LD   IXL,B","LD IXL,B","LD IXL,B","LD IXL,B",
+0xdd69,"ld   ixl,c",DD 69,"LD   IXL,C",,,,,,"LD   IXL,C","LD IXL,C","LD IXL,C","LD IXL,C",
+0xdd6a,"ld   ixl,d",DD 6A,"LD   IXL,D",,,,,,"LD   IXL,D","LD IXL,D","LD IXL,D","LD IXL,D",
+0xdd6b,"ld   ixl,e",DD 6B,"LD   IXL,E",,,,,,"LD   IXL,E","LD IXL,E","LD IXL,E","LD IXL,E",
+0xdd6c,"ld   ixl,ixh",DD 6C,"LD   IXL,IXH",,,,,,"LD   IXL,IXH","LD IXL,IXH","LD IXL,IXH","LD IXL,IXH",
+0xdd6d,"ld   ixl,ixl",DD 6D,"LD   IXL,IXL",,,,,,"LD   IXL,IXL","LD IXL,IXL","LD IXL,IXL","LD IXL,IXL",
+0xdd6e,"ld   l,(ix+&00)",DD 6E,"LD   L,(IX+&00)",,,,,,"LD   L,(IX+&00)","LD L,(IX+&00)","LD L,(IX+NN)","LD L,(IX+NN)",
+0xdd6f,"ld   ixl,a",DD 6F,"LD   IXL,A",,,,,,"LD   IXL,A","LD IXL,A","LD IXL,A","LD IXL,A",
+0xdd70,"ld   (ix+&00),b",DD 70 NN,"LD   (IX+&00),B",,,,,,"LD   (IX+&00),B","LD (IX+&00),B","LD (IX+NN),B","LD (IX+NN),B",
+0xdd71,"ld   (ix+&00),c",DD 71 NN,"LD   (IX+&00),C",,,,,,"LD   (IX+&00),C","LD (IX+&00),C","LD (IX+NN),C","LD (IX+NN),C",
+0xdd72,"ld   (ix+&00),d",DD 72 NN,"LD   (IX+&00),D",,,,,,"LD   (IX+&00),D","LD (IX+&00),D","LD (IX+NN),D","LD (IX+NN),D",
+0xdd73,"ld   (ix+&00),e",DD 73 NN,"LD   (IX+&00),E",,,,,,"LD   (IX+&00),E","LD (IX+&00),E","LD (IX+NN),E","LD (IX+NN),E",
+0xdd74,"ld   (ix+&00),h",DD 74 NN,"LD   (IX+&00),H",,,,,,"LD   (IX+&00),H","LD (IX+&00),H","LD (IX+NN),H","LD (IX+NN),H",
+0xdd75,"ld   (ix+&00),l",DD 75 NN,"LD   (IX+&00),L",,,,,,"LD   (IX+&00),L","LD (IX+&00),L","LD (IX+NN),L","LD (IX+NN),L",
+0xdd77,"ld   (ix+&00),a",DD 77 NN,"LD   (IX+&00),A",,,,,,"LD   (IX+&00),A","LD (IX+&00),A","LD (IX+NN),A","LD (IX+NN),A",
+0xdd7c,"ld   a,ixh",DD 7C,"LD   A,IXH",,,,,,"LD   A,IXH","LD A,IXH","LD A,IXH","LD A,IXH",
+0xdd7d,"ld   a,ixl",DD 7D,"LD   A,IXL",,,,,,"LD   A,IXL","LD A,IXL","LD A,IXL","LD A,IXL",
+0xdd7e,"ld   a,(ix+&00)",DD 7E NN,"LD   A,(IX+&00)",,,,,,"LD   A,(IX+&00)","LD A,(IX+&00)","LD A,(IX+NN)","LD A,(IX+NN)",
+0xdd84,"add   a,ixh",DD 84,"ADD   A,IXH",,,,,,"ADD   A,IXH","ADD A,IXH","ADD A,IXH","ADD A,IXH",
+0xdd85,"add   a,ixl",DD 85,"ADD   A,IXL",,,,,,"ADD   A,IXL","ADD A,IXL","ADD A,IXL","ADD A,IXL",
+0xdd86,"add   a,(ix+&00)",DD 86 NN,"ADD   A,(IX+&00)",,,,,,"ADD   A,(IX+&00)","ADD A,(IX+&00)","ADD A,(IX+NN)","ADD A,(IX+NN)",
+0xdd8c,"adc   a,ixh",DD 8C,"ADC   A,IXH",,,,,,"ADC   A,IXH","ADC A,IXH","ADC A,IXH","ADC A,IXH",
+0xdd8d,"adc   a,ixl",DD 8D,"ADC   A,IXL",,,,,,"ADC   A,IXL","ADC A,IXL","ADC A,IXL","ADC A,IXL",
+0xdd8e,"adc   a,(ix+&00)",DD 8E NN,"ADC   A,(IX+&00)",,,,,,"ADC   A,(IX+&00)","ADC A,(IX+&00)","ADC A,(IX+NN)","ADC A,(IX+NN)",
+0xdd94,"sub   a,ixh",DD 94,"SUB   A,IXH",,,,,,"SUB   A,IXH","SUB A,IXH","SUB A,IXH","SUB A,IXH",
+0xdd95,"sub   a,ixl",DD 95,"SUB   A,IXL",,,,,,"SUB   A,IXL","SUB A,IXL","SUB A,IXL","SUB A,IXL",
+0xdd96,"sub   a,(ix+&00)",DD 96 NN,"SUB   A,(IX+&00)",,,,,,"SUB   A,(IX+&00)","SUB A,(IX+&00)","SUB A,(IX+NN)","SUB A,(IX+NN)",
+0xdd9c,"sbc   a,ixh",DD 9C,"SBC   A,IXH",,,,,,"SBC   A,IXH","SBC A,IXH","SBC A,IXH","SBC A,IXH",
+0xdd9d,"sbc   a,ixl",DD 9D,"SBC   A,IXL",,,,,,"SBC   A,IXL","SBC A,IXL","SBC A,IXL","SBC A,IXL",
+0xdd9e,"sbc   a,(ix+&00)",DD 9E NN,"SBC   A,(IX+&00)",,,,,,"SBC   A,(IX+&00)","SBC A,(IX+&00)","SBC A,(IX+NN)","SBC A,(IX+NN)",
+0xdda4,and   ixh,DD A4,AND   IXH,,,,,,AND   IXH,AND IXH,AND IXH,AND IXH,
+0xdda5,and   ixl,DD A5,AND   IXL,,,,,,AND   IXL,AND IXL,AND IXL,AND IXL,
+0xdda6,and   (ix+&00),DD A6 NN,AND   (IX+&00),,,,,,AND   (IX+&00),AND (IX+&00),AND (IX+NN),AND (IX+NN),
+0xddac,xor   ixh,DD AC,XOR   IXH,,,,,,XOR   IXH,XOR IXH,XOR IXH,XOR IXH,
+0xddad,xor   ixl,DD AD,XOR   IXL,,,,,,XOR   IXL,XOR IXL,XOR IXL,XOR IXL,
+0xddae,xor   (ix+&00),DD AE NN,XOR   (IX+&00),,,,,,XOR   (IX+&00),XOR (IX+&00),XOR (IX+NN),XOR (IX+NN),
+0xddb4,or   ixh,DD B4,OR   IXH,,,,,,OR   IXH,OR IXH,OR IXH,OR IXH,
+0xddb5,or   ixl,DD B5,OR   IXL,,,,,,OR   IXL,OR IXL,OR IXL,OR IXL,
+0xddb6,or   (ix+&00),DD B6 NN,OR   (IX+&00),,,,,,OR   (IX+&00),OR (IX+&00),OR (IX+NN),OR (IX+NN),
+0xddbc,cp   ixh,DD BC,CP   IXH,,,,,,CP   IXH,CP IXH,CP IXH,CP IXH,
+0xddbd,cp   ixl,DD BD,CP   IXL,,,,,,CP   IXL,CP IXL,CP IXL,CP IXL,
+0xddbe,cp   (ix+&00),DD BE NN,CP   (IX+&00),,,,,,CP   (IX+&00),CP (IX+&00),CP (IX+NN),CP (IX+NN),
+0xdde1,pop   ix,DD E1,POP   IX,,,,,,POP   IX,POP IX,POP IX,POP IX,
+0xdde3,"ex   (sp),ix",DD E3,"EX   (SP),IX",,,,,,"EX   (SP),IX","EX (SP),IX","EX (SP),IX","EX (SP),IX",
+0xdde5,pus    ix,DD E5,PUS    IX,,,,,,PUS    IX,PUSH IX,PUSH IX,PUSH IX,
+0xdde9,jp   (ix),DD E9,JP   (IX),,,,,,JP   (IX),JP (IX),JP (IX),JP (IX),
+0xdd36,"ld  (ix+d),&00",,,,,,,,,,,,

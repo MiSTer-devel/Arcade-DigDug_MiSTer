@@ -24,6 +24,8 @@
 
 //`define TV80_REFRESH
 
+`timescale 1 ps / 1 ps
+
 module tv80_core (/*AUTOARG*/
   // Outputs
   m1_n, iorq, no_read, write, rfsh_n, halt_n, busak_n, A, dout, mc,

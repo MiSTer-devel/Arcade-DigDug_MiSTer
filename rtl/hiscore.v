@@ -40,6 +40,8 @@
 ============================================================================
 */
 
+`timescale 1 ps / 1 ps
+
 module hiscore 
 #(
 	parameter HS_ADDRESSWIDTH=10,							// Max size of game RAM address for highscores

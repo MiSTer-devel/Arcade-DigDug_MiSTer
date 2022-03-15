@@ -3,6 +3,9 @@
 //
 //					Copyright (c) 2017 MiSTer-X
 //--------------------------------------------
+
+`timescale 1 ps / 1 ps
+
 module DIGDUG_SPRITE
 (
 	input				RCLK,			// Rendering Clock
@@ -18,6 +21,7 @@ module DIGDUG_SPRITE
 
 	output reg [4:0] SPCOL,
 	
+	input 			V_FLIP,
 
 	input				ROMCL,		// Downloaded ROM image
 	input  [15:0]	ROMAD,
@@ -25,8 +29,8 @@ module DIGDUG_SPRITE
 	input				ROMEN
 );
 
-wire [8:0] PH = POSH+1'b1;
-wire [8:0] PV = POSV+2'h2;
+wire [8:0] PH = POSH+9'd1;
+wire [8:0] PV = POSV+9'd2;
 wire [8:0] TY;
 
 

@@ -3,6 +3,9 @@
 //
 //					Copyright (c) 2017 MiSTer-X
 //--------------------------------------------
+
+`timescale 1 ps / 1 ps
+
 module DIGDUG_VIDEO
 (
 	input					CLK48M,
@@ -26,6 +29,7 @@ module DIGDUG_VIDEO
 	output				PCLK,
 	output  [7:0]		POUT,
 
+	input 				V_FLIP,
 
 	input					ROMCL,		// Downloaded ROM image
 	input  [15:0]		ROMAD,
@@ -49,8 +53,8 @@ wire VCLK   = clkdiv[2];
 //---------------------------------------
 reg [8:0] PH, PV;
 always@( posedge VCLK ) begin
-	PH <= POSH+1'b1;
-	PV <= POSV+(POSH>=504);
+	PH <= V_FLIP ? (9'd286 - POSH) : POSH + 9'd1;
+	PV <= V_FLIP ? (9'd224 - POSV) : POSV+(POSH>=504);
 end
 
 
@@ -74,7 +78,7 @@ DIGDUG_SPRITE sprite
 	.SPATCL(SPATCL),.SPATAD(SPATAD),.SPATDT(SPATDT),
 
 	.SPCOL(SPCOL),
-	
+	.V_FLIP(V_FLIP),
 	.ROMCL(ROMCL),.ROMAD(ROMAD),.ROMDT(ROMDT),.ROMEN(ROMEN)
 );
 
