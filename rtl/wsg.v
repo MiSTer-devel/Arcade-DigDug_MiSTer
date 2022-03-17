@@ -3,6 +3,9 @@
 //
 //					Copyright (c) 2017 MiSTer-X
 //--------------------------------------------
+
+`timescale 1 ps / 1 ps
+
 module WSG_3CH
 (
    input			 CLK48M,

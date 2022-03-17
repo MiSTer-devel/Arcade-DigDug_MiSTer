@@ -3,6 +3,9 @@
 //
 //					Copyright (c) 2017 MiSTer-X
 //--------------------------------------------
+
+`timescale 1 ps / 1 ps
+
 module FPGA_DIGDUG
 (
 	input          RESET,      // RESET
@@ -20,10 +23,11 @@ module FPGA_DIGDUG
 
 	output reg [7:0] SOUT,		// SOUND OUT
 
-	output  [7:0]  LED,			// LEDs (for Debug)
+	output  [7:0]	LED,		// LEDs (for Debug)
 
+	input 			V_FLIP,		// Vertical flip video
 
-	input				ROMCL,		// Downloaded ROM image
+	input				ROMCL,	// Downloaded ROM image
 	input  [15:0]	ROMAD,
 	input	  [7:0]	ROMDT,
 	input				ROMEN,
@@ -150,6 +154,8 @@ DIGDUG_VIDEO video
 	.SPATCL(SPATCL),.SPATAD(SPATAD),.SPATDT(SPATDT),
 
 	.VBLK(VBLK),.PCLK(PCLK),.POUT(POUT),
+	
+	.V_FLIP(V_FLIP),
 
 	.ROMCL(ROMCL),.ROMAD(ROMAD),.ROMDT(ROMDT),.ROMEN(ROMEN)
 );

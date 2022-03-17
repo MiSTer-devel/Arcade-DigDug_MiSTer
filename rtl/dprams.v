@@ -3,6 +3,9 @@
 //
 //					Copyright (c) 2017 MiSTer-X
 //--------------------------------------------
+
+`timescale 1 ps / 1 ps
+
 module DPR2KV
 (
 	input					CL0,
@@ -75,14 +78,18 @@ module LBUF1K
 	output [7:0]	DO1
 );
 
-wire [7:0] non;
+dpram #(10,8) lbuf(
+	.clock_a(CL0),
+	.address_a(AD0),
+	.data_a(DI0),
+	.wren_a(WR0),
+	.q_a(),
 
-LINEBUF lbuf(
-	AD0,AD1,
-	CL0,CL1,
-	DI0,DI1,
-	WR0,WR1,
-	non,DO1
+	.clock_b(CL1),
+	.address_b(AD1),
+	.data_b(DI1),
+	.wren_b(WR1),
+	.q_b(DO1)
 );
 
 endmodule

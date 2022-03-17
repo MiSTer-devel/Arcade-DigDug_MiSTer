@@ -3,6 +3,9 @@
 //
 //					Copyright (c) 2017 MiSTer-X
 //--------------------------------------------
+
+`timescale 1 ps / 1 ps
+
 module DIGDUG_VIDEO
 (
 	input					CLK48M,
@@ -26,6 +29,7 @@ module DIGDUG_VIDEO
 	output				PCLK,
 	output  [7:0]		POUT,
 
+	input 				V_FLIP,
 
 	input					ROMCL,		// Downloaded ROM image
 	input  [15:0]		ROMAD,
@@ -48,11 +52,13 @@ wire VCLK   = clkdiv[2];
 //  Local Offset
 //---------------------------------------
 reg [8:0] PH, PV;
+reg [8:0] SPH, SPV;
 always@( posedge VCLK ) begin
-	PH <= POSH+1'b1;
-	PV <= POSV+(POSH>=504);
+	PH <= V_FLIP ? (9'd286 - POSH) : POSH + 9'd1;
+	PV <= V_FLIP ? (9'd223 - POSV) : POSV+(POSH>=9'd504);
+	SPH <= POSH;
+	SPV <= POSV+(POSH>=9'd504);
 end
-
 
 //---------------------------------------
 //  VRAM Scan Address Generator
@@ -70,11 +76,11 @@ wire  [4:0]	SPCOL;
 DIGDUG_SPRITE sprite
 (
 	.RCLK(VCLKx8),.VCLK(VCLK),.VCLKx2(VCLKx2),
-	.POSH(PH-1'b1),.POSV(PV),
+	.POSH(SPH),.POSV(SPV),
 	.SPATCL(SPATCL),.SPATAD(SPATAD),.SPATDT(SPATDT),
 
 	.SPCOL(SPCOL),
-	
+	.V_FLIP(V_FLIP),
 	.ROMCL(ROMCL),.ROMAD(ROMAD),.ROMDT(ROMDT),.ROMEN(ROMEN)
 );
 

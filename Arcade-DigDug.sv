@@ -193,6 +193,9 @@ localparam CONF_STR = {
 	//"OI,Cabinet,Upright,Cocktail;",
 	"-;",
 	"OH,Service Mode,Off,On;",
+	
+	"OI,Vertical flip,Off,On;",
+	
 	"H1OR,Autosave Hiscores,Off,On;",
 	"P1,Pause options;",
 	"P1OP,Pause when OSD is open,On,Off;",
@@ -372,6 +375,7 @@ wire  [2:0] EXMD = status[14:12]+3'h3;
 wire			CONT = ~status[15];
 wire			DSND = ~status[16];
 wire     SERVICE = status[17];
+wire      V_FLIP = status[18];
 
 wire  [7:0] DSW0 = {LIFE,EXMD,COIB};
 wire  [7:0] DSW1 = {COIA,FRZE,DSND,CONT,CABI,DIFC};
@@ -389,6 +393,8 @@ FPGA_DIGDUG GameCore (
 	
 	.ROMCL(clk_sys),.ROMAD(ioctl_addr[15:0]),.ROMDT(ioctl_dout),.ROMEN(ioctl_wr & rom_download),
 
+	.V_FLIP(V_FLIP),
+	
 	.PAUSE(pause_cpu),
 
 	.hs_address(hs_address),
@@ -436,46 +442,3 @@ hiscore #(
 );
 
 endmodule
-
-
-module HVGEN
-(
-	output  [8:0]		HPOS,
-	output  [8:0]		VPOS,
-	input 				PCLK,
-	input	 [11:0]		iRGB,
-
-	output reg [11:0]	oRGB,
-	output reg			HBLK = 1,
-	output reg			VBLK = 1,
-	output reg			HSYN = 1,
-	output reg			VSYN = 1
-);
-
-reg [8:0] hcnt = 0;
-reg [8:0] vcnt = 0;
-
-assign HPOS = hcnt;
-assign VPOS = vcnt;
-
-always @(posedge PCLK) begin
-	case (hcnt)
-		288: begin HBLK <= 1; hcnt <= hcnt+1'b1; end
-		311: begin HSYN <= 0; hcnt <= hcnt+1'b1; end
-		342: begin HSYN <= 1; hcnt <= 471;    end
-		511: begin HBLK <= 0; hcnt <= 0;
-			case (vcnt)
-				223: begin VBLK <= 1; vcnt <= vcnt+1'b1; end
-				226: begin VSYN <= 0; vcnt <= vcnt+1'b1; end
-				233: begin VSYN <= 1; vcnt <= 483;	  end
-				511: begin VBLK <= 0; vcnt <= 0;		  end
-				default: vcnt <= vcnt+1'b1;
-			endcase
-		end
-		default: hcnt <= hcnt+1'b1;
-	endcase
-	oRGB <= (HBLK|VBLK) ? 12'h0 : iRGB;
-end
-
-endmodule
-

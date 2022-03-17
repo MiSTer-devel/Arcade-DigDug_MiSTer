@@ -3,6 +3,9 @@
 //
 //					Copyright (c) 2017 MiSTer-X
 //--------------------------------------------
+
+`timescale 1 ps / 1 ps
+
 module DIGDUG_CORES
 (
 	input				MCLK,			// Clock (48.0MHz)
@@ -101,7 +104,8 @@ CPUCORE cpu2 (
 	.IRQ(IRQS[2]),.NMI(NMI2),
 	.AD(CPU2AD),.IR(CPU2IR),
 	.RD(CPU2RD),.DV(CPU2DV),.DI(CPU2DI),
-	.WR(CPU2WR),.DO(CPU2DO)
+	.WR(CPU2WR),.DO(CPU2DO),
+	.PAUSE()
 );
 
 

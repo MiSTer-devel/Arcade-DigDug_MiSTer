@@ -22,6 +22,8 @@
 // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+`timescale 1 ps / 1 ps
+
 module tv80_alu (/*AUTOARG*/
   // Outputs
   Q, F_Out, 

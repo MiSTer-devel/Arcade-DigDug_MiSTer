@@ -1,3 +1,5 @@
+`timescale 1 ps / 1 ps
+
 module CPUCORE
 (
 	input				RESET,
@@ -44,7 +46,13 @@ tv80s core(
 	.int_n(m_irq),
 	.nmi_n(m_nmi),
 	.busrq_n(1'b1),
-	.di(m_di)
+	.di(m_di),
+
+	.m1_n(),
+	.halt_n(),
+	.rfsh_n(),
+	.busak_n()
+
 );
 
 assign RD = m_mr & ~cs_nodv;
