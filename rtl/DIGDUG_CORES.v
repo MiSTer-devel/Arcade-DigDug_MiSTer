@@ -136,7 +136,7 @@ module CPUARB
 	output				DEV_WR,
 	output  [7:0]		DEV_DI,
 
-	output				CPU0CL,
+	output	reg		CPU0CL,
 	input  [15:0]		CPU0AD,
 	input					CPU0RD,
 	output				CPU0DV,
@@ -144,7 +144,7 @@ module CPUARB
 	input					CPU0WR,
 	input	  [7:0]		CPU0DO,
 	
-	output				CPU1CL,
+	output	reg		CPU1CL,
 	input  [15:0]		CPU1AD,
 	input					CPU1RD,
 	output				CPU1DV,
@@ -152,7 +152,7 @@ module CPUARB
 	input					CPU1WR,
 	input	  [7:0]		CPU1DO,
 
-	output				CPU2CL,
+	output	reg		CPU2CL,
 	input  [15:0]		CPU2AD,
 	input					CPU2RD,
 	output				CPU2DV,
@@ -166,14 +166,12 @@ always @( posedge CLK48M ) clkdiv <= clkdiv+1'b1;
 wire CLK24M = clkdiv[0];
 wire CLK12M = clkdiv[1];
 
-reg [3:0] CLKS = 4'b1000;
 reg [3:0] BUSS = 4'b0001;
-always @( posedge CLK12M ) CLKS <= {CLKS[2:0],CLKS[3]};
 always @( negedge CLK12M ) BUSS <= {BUSS[2:0],BUSS[3]};
 
-assign CPU0CL = CLKS[0];
-assign CPU1CL = CLKS[1];
-assign CPU2CL = CLKS[2];
+always @( posedge CLK12M ) CPU0CL <= BUSS[0];
+always @( posedge CLK12M ) CPU1CL <= BUSS[1];
+always @( posedge CLK12M ) CPU2CL <= BUSS[2];
 
 assign DEV_CL = CLK24M;
 
