@@ -42,6 +42,8 @@ module emu
 	input  [11:0] HDMI_WIDTH,
 	input  [11:0] HDMI_HEIGHT,
 	output        HDMI_FREEZE,
+	output        HDMI_BLACKOUT,
+	output        HDMI_BOB_DEINT,
 
 `ifdef MISTER_FB
 	// Use framebuffer in DDRAM
@@ -174,6 +176,8 @@ assign BUTTONS    = 0;
 assign AUDIO_MIX  = 0;
 assign HDMI_FREEZE= 0;
 assign FB_FORCE_BLANK = 0;
+assign HDMI_BLACKOUT = 0;
+assign HDMI_BOB_DEINT = 0;
 
 wire [1:0] ar = status[20:19];
 
